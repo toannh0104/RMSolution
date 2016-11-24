@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.mitrais</groupId>
+	<artifactId>RMS</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<developers>
+
+		<developer>
+			<name>Thuat.NQ</name>
+			<email>thuat.nguyenquang@mitrais.com</email>
+		</developer>
+
+		<developer>
+			<name>Akhmad Fathoni</name>
+			<email>Akhmad.Fathoni@mitrais.com</email>
+		</developer>
+
+		<developer>
+			<name>Marissa Hamnon</name>
+			<email>Marissa.Hamnon@mitrais.com</email>
+		</developer>
+
+		<developer>
+			<name>Yuan Yusiyana</name>
+			<email>Yuan.Yusiyana@mitrais.com</email>
+		</developer>
+
+		<developer>
+			<name>Toan.NH</name>
+			<email>toan.nguyenhai@mitrais.com</email>
+		</developer>
+	</developers>
+
+	<modules>
+		<module>commons</module>
+		<module>employee</module>
+	</modules>
+
+	<name>RMS</name>
+	<description>Resource Managerment System</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
