@@ -1,0 +1,13 @@
+Marital Status: MARITAL
+Error: ERROR
+Grade: GRADE
+Gender: GENDER
+Nationality: NATION
+Employeement Status: EMPSTAT
+Dependents Type: DEPTYPE
+Active Ind: ACTIND
+Division: DIV
+Sub Division: SUBDIV
+Company: COMPANY
+Primary Stream: PRIMSTREAM
+Secondary Stream: SECSTREAM
