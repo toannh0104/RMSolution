@@ -34,6 +34,9 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "company")
+    private String company;
+
     @Column(name = "employeement_status")
     private String employeementStatus;
 
@@ -81,9 +84,6 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     private Set<Location> locations;
-
-    @OneToMany(mappedBy = "employee")
-    private Set<Credential> credentials;
 
     public Employee() {
     }
@@ -302,11 +302,15 @@ public class Employee {
         this.locations = locations;
     }
 
-    public Set<Credential> getCredentials() {
-        return credentials;
+    public String getCompany() {
+        return company;
     }
 
-    public void setCredentials(Set<Credential> credentials) {
-        this.credentials = credentials;
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setActiveInd(int activeInd) {
+        this.activeInd = activeInd;
     }
 }

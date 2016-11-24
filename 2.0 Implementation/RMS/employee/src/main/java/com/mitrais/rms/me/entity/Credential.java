@@ -1,6 +1,8 @@
 package com.mitrais.rms.me.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -11,24 +13,51 @@ import java.util.Set;
 public class Credential {
     @Id
     @Column(name = "id")
+    @GeneratedValue
     private Integer id;
 
     @Column(name = "enable")
-    private int enable; //0: disable, 1: enable
+    @NotNull
+    private boolean enabled; //0: disable, 1: enable
 
     @Column(name = "locked")
-    private int locked; //0: locked, 1: unlocked
+    @NotNull
+    private boolean locked; //0: locked, 1: unlocked
+
+    private boolean credentialsexpired = false;
+    private boolean expired = false;
 
     @Column(name = "password")
+    @NotNull
+    @Size(min = 8, max = 255, message = "Password have to be grater than 8 characters")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id", nullable = false)
-    private Employee employee;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "credential_role", joinColumns = @JoinColumn(name="credential_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
 
-    @OneToMany(mappedBy = "credential")
-    private Set<CredentialRole> credentialRoles;
+    public Credential(Credential credential) {
+    }
 
+    public Credential() {
+    }
+
+    public boolean isCredentialsexpired() {
+        return credentialsexpired;
+    }
+
+    public void setCredentialsexpired(boolean credentialsexpired) {
+        this.credentialsexpired = credentialsexpired;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
 
     public Integer getId() {
         return id;
@@ -38,19 +67,19 @@ public class Credential {
         this.id = id;
     }
 
-    public int getEnable() {
-        return enable;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setEnable(Byte enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public int getLocked() {
+    public boolean isLocked() {
         return locked;
     }
 
-    public void setLocked(Byte locked) {
+    public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
@@ -62,19 +91,11 @@ public class Credential {
         this.password = password;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Set<CredentialRole> getCredentialRoles() {
-        return credentialRoles;
-    }
-
-    public void setCredentialRoles(Set<CredentialRole> credentialRoles) {
-        this.credentialRoles = credentialRoles;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

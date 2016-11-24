@@ -1,6 +1,8 @@
 package com.mitrais.rms.me.entity;
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -14,13 +16,12 @@ public class Role {
     private Integer id;
 
     @Column(name = "code")
+    @NotNull
     private String code;
 
+    @NotNull
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "role")
-    private Set<CredentialRole> credentialRoles;
 
     public Integer getId() {
         return id;
@@ -44,13 +45,5 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<CredentialRole> getCredentialRoles() {
-        return credentialRoles;
-    }
-
-    public void setCredentialRoles(Set<CredentialRole> credentialRoles) {
-        this.credentialRoles = credentialRoles;
     }
 }
