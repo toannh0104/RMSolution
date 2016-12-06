@@ -74,21 +74,18 @@ body{
 	height: 39px;
 }
 .left-column{	
-	min-width: 300px;
-	max-width: 32%;
-	float: left;
 	border-right: 1px solid darkgray;	
     box-shadow: 1px 2px 2px gray;
+    min-width: 300px;
+    width: 30%;
 }
-.column-head{
-	float: left;
-}
+
 .right-column{
-	width: auto;
-	float: right;
-	height: 600px;
-	background-color:red;
+	vertical-align: top;
 }
+.right-column a{
+	color: white;
+	}
 .text-white{
 	color: white;
 	font-size: 14px;
@@ -146,4 +143,52 @@ color: white !important;
 .record-item{
 	color: #3f51b5;
 	font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a  {
+    border-bottom: 1px solid #ddd !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.right-column ul li{
+	
+	font-size: 30px;
+}
+
+.right-column li a {
+	padding-bottom: 1px;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+.right-column ul li a:hover {
+	color: #880e4f;
+	background: none;
+	border: none;
+
+	padding-bottom: 1px;
+	padding-right: 0px;
+	padding-left: 0px;
+	border-bottom: 2px solid #880e4f;
+}
+
+.right-column .active a{
+	color: #880e4f;
+	background: none;
+	border: none;
+
+	padding-bottom: 1px;
+	padding-right: 0px;
+	padding-left: 0px;
+	border-bottom: 2px solid #880e4f;
+}
+
+.nav-tabs.nav-justified>li>a{
+	border-bottom: 1px solid #5c6bc0;
 }
