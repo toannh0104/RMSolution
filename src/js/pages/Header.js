@@ -16,7 +16,17 @@ export default class Header extends React.Component {
           </div>
           <div id="navbar-collapse" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
-              <li><Link to="/" activeClassName="active" onlyActiveOnIndex={true}>Home</Link></li>
+              <li>
+              
+                <Link to="/" activeClassName="active rms-hmore rms-icon" onlyActiveOnIndex={true}>
+                  <span className="glyphicon glyphicon-align-justify" aria-hidden="true" ></span>
+                </Link>
+              
+                <div className="rms-user-info">
+                  <div className="glyphicon glyphicon-user rms-user rms-icon" aria-hidden="true" ></div>
+                  <div className="rms-user-detail">Nguyen Hai Toan <br/> SE - AP</div>                    
+                </div>
+              </li>
               <Authenticated>
                 <li>
                   <Link to="/profile" activeClassName="active">Profile</Link>
@@ -24,19 +34,19 @@ export default class Header extends React.Component {
               </Authenticated>
             </ul>
             <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a href="#" className="text-center rms-user-info">
+                  <i className="rms-user-info">
+                  Hi
+                  { this.context.user ? ' ' + this.context.user.givenName : null }!
+                  </i>
+                </a>
+              </li>         
               <NotAuthenticated>
                 <li>
-                  <LoginLink activeClassName="active" />
-                </li>
-              </NotAuthenticated>
-              <Authenticated>
-                <li>
-                  <LogoutLink />
-                </li>
-              </Authenticated>
-              <NotAuthenticated>
-                <li>
-                  <Link to="/register" activeClassName="active">Create Account</Link>
+                  <Link to="#" activeClassName="active">
+                    <i className="glyphicon glyphicon-off rms-icon"></i>
+                  </Link>
                 </li>
               </NotAuthenticated>
             </ul>
