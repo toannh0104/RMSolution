@@ -6,24 +6,22 @@ import { LoginLink, LogoutLink, NotAuthenticated, Authenticated } from 'react-st
 export default class Header extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-default navbar-static-top">
+      <nav className="navbar">
         <div className="container">
-          <div className="navbar-header">
-            <button type="button" data-toggle="collapse" data-target="#navbar-collapse" className="navbar-toggle collapsed">
-              <span className="sr-only">Toggle Navigation</span>
-              <span className="icon-bar"></span><span className="icon-bar"></span><span className="icon-bar"></span>
-            </button>
-          </div>
-          <div id="navbar-collapse" className="collapse navbar-collapse">
-            <ul className="nav navbar-nav">
+          
+          <div id="navbar-collapse">
+            <ul className="nav navbar-nav navbar-left">
               <li>
               
                 <Link to="/" activeClassName="active rms-hmore rms-icon" onlyActiveOnIndex={true}>
-                  <span className="glyphicon glyphicon-align-justify" aria-hidden="true" ></span>
+                  <span className="glyphicon glyphicon-menu-hamburger" aria-hidden="true" ></span>
                 </Link>
               
-                <div className="rms-user-info">
-                  <div className="glyphicon glyphicon-user rms-user rms-icon" aria-hidden="true" ></div>
+                <div className="rms-user-info">              
+                    <span className="rms-user" >
+                      <img className="avt-img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg" />
+                    </span>
+                 
                   <div className="rms-user-detail">Nguyen Hai Toan <br/> SE - AP</div>                    
                 </div>
               </li>
@@ -32,23 +30,18 @@ export default class Header extends React.Component {
                   <Link to="/profile" activeClassName="active">Profile</Link>
                 </li>
               </Authenticated>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a href="#" className="text-center rms-user-info">
-                  <i className="rms-user-info">
-                  Hi
-                  { this.context.user ? ' ' + this.context.user.givenName : null }!
-                  </i>
-                </a>
-              </li>         
-              <NotAuthenticated>
-                <li>
-                  <Link to="#" activeClassName="active">
-                    <i className="glyphicon glyphicon-off rms-icon"></i>
-                  </Link>
-                </li>
-              </NotAuthenticated>
+            
+              <li className="right-align">
+                <div className="text-center rms-user-info padding-right-10">
+                  <i className="rms-user-info" >Hi Admin !</i>
+                </div>
+                <div className="rms-user padding-right-10">
+                  <a href="#"><i className="glyphicon glyphicon-cog rms-icon"></i></a>
+                </div>
+                <div className="rms-user padding-right-10">
+                  <a href="#"><i className="glyphicon glyphicon-off rms-icon"></i></a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
