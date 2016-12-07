@@ -60,6 +60,7 @@ body{
 	background-color: #5c6bc0;
 	border: none ;
 	font-size: 20px;
+	border-radius: 0px;
 }
 .input-group-addon .stylish-input-group, .stylish-input-group spa, .stylish-input-group input, .stylish-input-group button{
 	background-color: #5c6bc0;
@@ -122,7 +123,7 @@ input:-ms-input-placeholder {
 color: white !important;  
 }
 .rms-search-count{
-    border-radius: 7px;
+    border-radius: 0px;
     background-color: #e0e0e0;    
     line-height:25px;
     font-size: 14px;
@@ -169,7 +170,7 @@ color: white !important;
     width: 1%;
   }
   .nav-justified > li > a  {
-    border-radius: 4px 4px 0 0 !important;
+    border-radius: 0 !important;
     margin-bottom: 0 !important;
   }
 }
@@ -285,4 +286,23 @@ color: white !important;
 }
 #page-wrapper{
 	
+}
+.left-menu, .left-menu li{
+	background: #5c6bc0;
+}
+
+.left-menu{
+	height: 45px;
+}
+
+.right-menu {
+	position: relative;
+    overflow: hidden;
+    background: #5c6bc0;
+
+}
+
+.right-menu ul li{
+	padding-left: 10px;
+	padding-right: 10px;
 }
