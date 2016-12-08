@@ -23,7 +23,7 @@ $(document).ready(function(){
 
    $(".rms-hmore").on("click", function(){
       if($(".left-column").hasClass("show")){
-        $(".left-column").removeClass("show")
+         $(".left-column").removeClass("show")
          $(".left-column").fadeOut(700);
       }else{
          $(".left-column").addClass("show")
@@ -31,7 +31,9 @@ $(document).ready(function(){
       }
    })
 
-   $('#draggable4').draggable();
+   $('.add-employee-btn').draggable({
+       appendTo: $(".left-column")
+   });
 });
 
 
@@ -42,16 +44,21 @@ export default class IndexPage extends React.Component {
 
   render() {
     return (
+
       <div id="wrapper"> 
+      
+      
          <div id="page-wrapper1" className="gray-bg">            
             <div className="fh-breadcrumb">
                <div className="left-column">
+
                   <div className="full-height-scroll">
                     <ul className="nav navbar-nav rms-nav left-menu">
                         <li className="width-100">
                            <div className="input-group stylish-input-group">
                               <span className="input-group-addon"><button type="submit"><span className="glyphicon glyphicon-search text-white font-size-16px"></span></button></span><input type="text" className="form-control rms-search-box text-white font-size-16px" placeholder="Search"/>
                               <span className="input-group-addon">
+                                 <button><span className="glyphicon glyphicon-trash text-white font-medium"></span></button>
                                  <button type="submit"><span className="glyphicon glyphicon-sort text-white font-medium"></span></button><button type="submit"><span className="glyphicon glyphicon-filter text-white font-medium"></span></button>
                                  <div className="glyphicon rms-search-count">99999999999</div>
                               </span>
@@ -61,6 +68,7 @@ export default class IndexPage extends React.Component {
                      
                      <div className="clearfix" ></div>
                         <ul className="list-group elements-list">
+                        
                            <li className="list-group-item rms-list-item">
                               <a data-toggle="tab" href="#persional-info" aria-expanded="false">
                                     <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
@@ -350,7 +358,10 @@ export default class IndexPage extends React.Component {
                <div>
                   <strong>Copyright</strong> Example Company &copy; 2014-2017
                </div>
-            </div>        
+            </div>    
+
+<div id="add-employee-btn" className="add-employee-btn"></div>            
+
          </div>
       </div>
    
