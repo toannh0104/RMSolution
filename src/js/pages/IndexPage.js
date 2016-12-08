@@ -14,14 +14,14 @@ $(document).ready(function(){
    $(window).bind("resize", function () {
        if ($(this).width() < 769) {
            $('body').addClass('body-small');
-           $(".left-column").fadeOut(700);
+          // $(".left-column").fadeOut(700);
        } else {
            $('body').removeClass('body-small');
-           $(".left-column").fadeIn(700);
+          // $(".left-column").fadeIn(700);
        }
    });
 
-   $(".rms-hmore").on("click", function(){
+/*   $(".rms-hmore").on("click", function(){
       if($(".left-column").hasClass("show")){
          $(".left-column").removeClass("show")
          $(".left-column").fadeOut(700);
@@ -30,7 +30,12 @@ $(document).ready(function(){
          $(".left-column").fadeIn(700);
       }
    })
+*/
 
+  $(".rms-hmore").on("click", function(e){
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  })
    $('.add-employee-btn').draggable({
        appendTo: $(".left-column")
    });
@@ -48,11 +53,10 @@ export default class IndexPage extends React.Component {
       <div id="wrapper"> 
       
       
-         <div id="page-wrapper1" className="gray-bg">            
-            <div className="fh-breadcrumb">
+         
                <div className="left-column">
 
-                  <div className="full-height-scroll">
+                 
                     <ul className="nav navbar-nav rms-nav left-menu">
                         <li className="width-100">
                            <div className="input-group stylish-input-group">
@@ -67,144 +71,144 @@ export default class IndexPage extends React.Component {
                      </ul>  
                      
                      <div className="clearfix" ></div>
-                        <ul className="list-group elements-list">
-                        
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                           <li className="list-group-item rms-list-item">
-                              <a data-toggle="tab" href="#persional-info" aria-expanded="false">
-                                    <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
-                                    <div className="col-xs-7 text-black">
-                                       <div>ToanNH </div>
-                                       <div>SE - AP</div>
-                                       <div>Hanoi, VietNam</div>
-                                    </div>
-                                    <div className="col-xs-1 text-black">
-                                       <small>20/12/2016</small>
-                                       <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
-                                    </div>
-                                 
-                              </a>
-                           </li>
-                        </ul>
-                   </div>
+                      <ul className="list-group elements-list employee-list">
+                      
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>                                 
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                         <li className="list-group-item rms-list-item">
+                            <a data-toggle="tab" href="#persional-info" aria-expanded="false">
+                                  <div className="col-xs-2"><span><img alt="image" className="img-circle" src="http://topanhdep.net/wp-content/uploads/2015/12/anh-girl-xinh-gai-dep-98-18.jpg"/></span></div>
+                                  <div className="col-xs-7 text-black">
+                                     <div>ToanNH </div>
+                                     <div>SE - AP</div>
+                                     <div>Hanoi, VietNam</div>
+                                  </div>
+                                  <div className="col-xs-1 text-black">
+                                     <small>20/12/2016</small>
+                                     <span className="glyphicon glyphicon-record record-item"><i className="glyphicon glyphicon-menu-right"></i></span>
+                                  </div>
+                               
+                            </a>
+                         </li>
+                      </ul>
+          
                </div>
                <div className="right-column">
                   <div className="full-height-scroll white-bg border-left">
@@ -221,7 +225,7 @@ export default class IndexPage extends React.Component {
 
                <div className="tab-content">
                 <div id="persional-info" className="tab-pane fade in active">
-                  <h3>Persional Info</h3>
+                  <div class="title">Persional Info</div>
                   <div className="table-responsive">
                     <table className="table persional-info">
                     <tbody>
@@ -348,8 +352,7 @@ export default class IndexPage extends React.Component {
                
             </div>
          </div>
-               </div>
-            </div>
+             
 
             <div className="footer">
                <div className="pull-right">

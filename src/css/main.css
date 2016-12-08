@@ -88,10 +88,11 @@ body{
 	
 	height: 39px;
 }
+/*
 .left-column{		
-    /*border-right: 1px solid lightgray;*/
+    /*border-right: 1px solid lightgray;
     min-width: 30%;
-    max-width: 450px;
+    max-width: 360px;
     width: initial;
 
     vertical-align: top;
@@ -101,10 +102,25 @@ body{
     overflow:auto;
     float: left;
 }
+*/
+
+.left-column {
+    z-index: 1000;
+    position: absolute;
+    left: 360px;
+    width: 0;
+    margin-left: -360px;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
 .right-column{
 	vertical-align: top;
 	padding:0px;
+	margin-top: 1px;
 }
 .right-column a{
 	color: white;
@@ -302,14 +318,27 @@ color: white !important;
 }
 
 .left-menu{
-	margin: 0 auto;
-	height: 45px;
+	position: relative;
+    top: 0;
+    width: 360px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 45px;
 }
+
+position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 
 .right-menu {
 	position: relative;
     overflow: hidden;
  	background-color: #fff;   
+
 }
 
 .right-menu ul li{
@@ -319,7 +348,7 @@ color: white !important;
 
 .right-menu .nav-tabs{
 	background: #5c6bc0;
-	padding-bottom: 2px;
+	height: 45px;
 }
 
 .right-menu .nav-tabs a{
@@ -349,4 +378,56 @@ color: white !important;
 	left: 276px;
     top: -241px;
 
+}
+
+#wrapper {
+	z-index:-1000;
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+	padding-left: 360px;
+}
+
+
+#wrapper.toggled .left-column{
+	width: 360px;
+}
+
+
+#wrapper.toggled .right-column {
+    position: absolute;
+    margin-right: -360px;
+
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 360px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    .left-column {
+        width: 360px;
+    }
+    #wrapper.toggled .left-column {
+        width: 0;
+    }
+
+    .right-column {       
+        position: relative;
+    }
+
+    #wrapper.toggled .right-column {
+        position: relative;
+        margin-right: 0;
+        width: 100%;
+    }
 }
