@@ -12,6 +12,56 @@ $(document).ready(function(){
    	//$(".add-employee").modal({backdrop:'static'});
    })
    */
+
+// Step show event 
+            $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+               //alert("You are on step "+stepNumber+" now");
+               if(stepPosition === 'first'){
+                   $("#prev-btn").addClass('disabled');
+               }else if(stepPosition === 'final'){
+                   $("#next-btn").addClass('disabled');
+               }else{
+                   $("#prev-btn").removeClass('disabled');
+                   $("#next-btn").removeClass('disabled');
+               }
+            });
+            
+            // Toolbar extra buttons
+            var btnFinish = $('<button></button>').text('Finish')
+                                             .addClass('btn btn-info')
+                                             .on('click', function(){ alert('Finish Clicked'); });
+            var btnCancel = $('<button></button>').text('Cancel')
+                                             .addClass('btn btn-danger')
+                                             .on('click', function(){ $('#smartwizard').smartWizard("reset"); });                         
+            
+            
+            // Smart Wizard
+            $('#smartwizard').smartWizard({ 
+                    selected: 0, 
+                    theme: 'default',
+                    transitionEffect:'fade',
+                    toolbarSettings: {toolbarPosition: 'both',
+                                      toolbarExtraButtons: [btnFinish, btnCancel]
+                                    }
+                 });
+                                         
+            
+            
+            $("#prev-btn").on("click", function() {
+                // Navigate previous
+                $('#smartwizard').smartWizard("prev");
+                return true;
+            });
+            
+            $("#next-btn").on("click", function() {
+                // Navigate next
+                $('#smartwizard').smartWizard("next");
+                return true;
+            });
+            
+
+
+
 });
 
 export default class AddEmployee extends React.Component {
@@ -29,11 +79,7 @@ export default class AddEmployee extends React.Component {
 
   doClick(){
   	//alert("clicked reactjs")
-    $("#myModal").steps({
-        headerTag: "h2",
-        bodyTag: "section",
-        transitionEffect: "slideLeft"
-    });
+   
   	$("#myModal").modal({backdrop:'static'});
 
   };
@@ -43,48 +89,64 @@ export default class AddEmployee extends React.Component {
     	<div>
 	     	<div id="add-employee-btn" onClick={this.doClick} className="btn btn-primary" data-toggle="modal" ></div>
 	      	
-  		  <div id="myModal" className="modal fade" role="dialog">
-          
+			<div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div className="modal-dialog" role="document">
+			    <div className="modal-content">
+			      <div className="modal-header">
+			        <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+			      </div>
+			      <div className="modal-body">
+			        
+			        <div id="smartwizard">
+			            <ul>
+			                <li><a href="#step-1">Step 1<br /><small>This is tab's description</small></a></li>
+			                <li><a href="#step-2">Step 2<br /><small>This is tab's description</small></a></li>
+			                <li><a href="#step-3">Step 3<br /><small>This is tab's description</small></a></li>
+			                <li><a href="#step-4">Step 4<br /><small>This is tab's description</small></a></li>
+			            </ul>
+			            
+			            <div>
+			                <div id="step-1" className="">
+			                    <h2>Step 1 Content</h2>
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                </div>
+			                <div id="step-2" className="">
+			                    <h2>Step 2 Content</h2>
+			                    <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </div>
+			                </div>
+			                <div id="step-3" className="">
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			                </div>
+			                <div id="step-4" className="">
+			                    <h2>Step 4 Content</h2>
+			                    <div className="panel panel-default">
+			                        <div className="panel-heading">My Details</div>
+			                        <table className="table">
+			                            <tbody>
+			                                <tr> <th>Name:</th> <td>Tim Smith</td> </tr>
+			                                <tr> <th>Email:</th> <td>example@example.com</td> </tr>
+			                            </tbody>
+			                        </table>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+					
+			      </div>
+			      <div className="modal-footer">
+			        <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" className="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 
-
-
-<h2>First Step</h2>
-                <section>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, 
-                        sagittis accumsan tellus. In hac habitasse platea dictumst. Donec a semper dui. Nunc eget quam libero. Nam at felis metus. 
-                        Nam tellus dolor, tristique ac tempus nec, iaculis quis nisi.</p>
-                </section>
-
-                <h2>Second Step</h2>
-                <section>
-                    <p>Donec mi sapien, hendrerit nec egestas a, rutrum vitae dolor. Nullam venenatis diam ac ligula elementum pellentesque. 
-                        In lobortis sollicitudin felis non eleifend. Morbi tristique tellus est, sed tempor elit. Morbi varius, nulla quis condimentum 
-                        dictum, nisi elit condimentum magna, nec venenatis urna quam in nisi. Integer hendrerit sapien a diam adipiscing consectetur. 
-                        In euismod augue ullamcorper leo dignissim quis elementum arcu porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Vestibulum leo velit, blandit ac tempor nec, ultrices id diam. Donec metus lacus, rhoncus sagittis iaculis nec, malesuada a diam. 
-                        Donec non pulvinar urna. Aliquam id velit lacus.</p>
-                </section>
-
-                <h2>Third Step</h2>
-                <section>
-                    <p>Morbi ornare tellus at elit ultrices id dignissim lorem elementum. Sed eget nisl at justo condimentum dapibus. Fusce eros justo, 
-                        pellentesque non euismod ac, rutrum sed quam. Ut non mi tortor. Vestibulum eleifend varius ullamcorper. Aliquam erat volutpat. 
-                        Donec diam massa, porta vel dictum sit amet, iaculis ac massa. Sed elementum dui commodo lectus sollicitudin in auctor mauris 
-                        venenatis.</p>
-                </section>
-
-                <h2>Forth Step</h2>
-                <section>
-                    <p>Quisque at sem turpis, id sagittis diam. Suspendisse malesuada eros posuere mauris vehicula vulputate. Aliquam sed sem tortor. 
-                        Quisque sed felis ut mauris feugiat iaculis nec ac lectus. Sed consequat vestibulum purus, imperdiet varius est pellentesque vitae. 
-                        Suspendisse consequat cursus eros, vitae tempus enim euismod non. Nullam ut commodo tortor.</p>
-                </section>
-
-
-
-
-
-        </div>
 		</div>
     );
   }
