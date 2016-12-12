@@ -13,18 +13,72 @@ export default class PersionalHistory extends React.Component {
     return (      
         <div id="history" className="tab-pane fade">
           <div className="title">Persional histories</div>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <table className="table" >
+            <tbody>
+              <tr>
+                <td className="width200px" >
+                  <small className="font-small">JANYARRY</small>
+                  <div className="htitle">2016 - PRESENT</div>
+                  <hr/>
+                  <div className="bold align-right">Mitrais Ltd</div>
+                  <div className="align-right">JAVA DEVELOPER</div>
+                </td>
+                <td>
+                  <div className="htitle" >JOB DESRIPTION</div>
+                  <ul>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td className="width200px" >
+                  <small className="font-small">JANYARRY</small>
+                  <div className="htitle">2016 - PRESENT</div>
+                  <hr/>
+                  <div className="bold align-right">EXOPLATFORM</div>
+                  <div className="align-right">JAVA DEVELOPER</div>
+                </td>
+                <td>
+                  <div className="htitle" >JOB DESRIPTION</div>
+                  <ul>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                  </ul>
+                </td>
+              </tr>
+
+              <tr>
+                <td className="width200px" >
+                  <small className="font-small">JANYARRY</small>
+                  <div className="htitle">2016 - PRESENT</div>
+                  <hr/>
+                  <div className="bold align-right">VIETSOFTWARE INTERNATIONAL</div>
+                  <div className="align-right">JAVA DEVELOPER</div>
+                </td>
+                <td>
+                  <div className="htitle" >JOB DESRIPTION</div>
+                  <ul>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                    <li className="font-14px" >Description descrption descrption descrption descrption</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
          </div>
     );
   }

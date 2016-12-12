@@ -30,6 +30,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use('/css', express.static(__dirname + '/src/css'));
+app.use('/lib', express.static(__dirname + '/src/lib'));
 
 app.use(stormpath.init(app, {
   // Disable logging until startup, so that we can catch errors

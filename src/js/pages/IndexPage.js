@@ -8,6 +8,9 @@ import EmployeeList from './EmployeeList';
 import PersionalHistory from './PersionalHistory';
 import PersionalGrade from './PersionalGrade';
 import PersionalDependent from './PersionalDependent';
+import AddEmployee from './AddEmployee';
+
+
 $(document).ready(function(){
    // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
@@ -19,31 +22,18 @@ $(document).ready(function(){
    $(window).bind("resize", function () {
        if ($(this).width() < 769) {
            $('body').addClass('body-small');
-          // $(".left-column").fadeOut(700);
        } else {
            $('body').removeClass('body-small');
-          // $(".left-column").fadeIn(700);
        }
    });
 
-/*   $(".rms-hmore").on("click", function(){
-      if($(".left-column").hasClass("show")){
-         $(".left-column").removeClass("show")
-         $(".left-column").fadeOut(700);
-      }else{
-         $(".left-column").addClass("show")
-         $(".left-column").fadeIn(700);
-      }
-   })
-*/
 
   $(".rms-hmore").on("click", function(e){
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
   })
-   $('.add-employee-btn').draggable({
-       appendTo: $(".left-column")
-   });
+
+
 });
 
 
@@ -56,6 +46,7 @@ export default class IndexPage extends React.Component {
     return (
       <div id="wrapper"> 
          <div className="left-column">
+
             <LeftMenu/> 
             <div className="clearfix" ></div>
             <EmployeeList/>
@@ -78,6 +69,7 @@ export default class IndexPage extends React.Component {
                  </div>
             </div>
          </div>
+         <AddEmployee />
       </div>
     );
   }

@@ -2,16 +2,9 @@ import React from 'react';
 
 export default class EmployeeList extends React.Component {
 
-
   static propTypes = {
     name: React.PropTypes.string,
   };
-
-  getInitialState(){
-  	return{
-  		selectedId: -1
-  	}
-  }
 
   loadEmployee(id){
   	console.log("Loading employee by id = "+id);
@@ -20,6 +13,9 @@ export default class EmployeeList extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      selectedId: -1
+    }
   }
 
   render() {
