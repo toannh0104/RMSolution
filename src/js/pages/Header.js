@@ -7,12 +7,10 @@ export default class Header extends React.Component {
   render() {
     return (
       <nav className="navbar">
-        <div className="container">
-          
+        <div className="container">          
           <div id="navbar-collapse">
             <ul className="nav navbar-nav navbar-left">
-              <li>
-              
+              <li>              
                 <button className="rms-hmore rms-icon">
                   <span className="glyphicon glyphicon-menu-hamburger" aria-hidden="true" ></span>
                 </button>

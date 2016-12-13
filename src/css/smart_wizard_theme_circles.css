@@ -14,7 +14,7 @@
     /*box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);*/ 
 }
 .sw-theme-circles .sw-container {
-    min-height: 300px;
+    min-height: 410px;
 }
 .sw-theme-circles .step-content { 
     padding: 10px 0;     
@@ -57,18 +57,19 @@
 .sw-theme-circles > ul.step-anchor > li > a{
     border: 1px solid #ccc !important;
     background: #fff !important;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     text-align: center;
     padding: 15px 0;
-    padding-top: 24px;
+    padding-top: 10px;
     font-weight: bold;
     border-radius: 50%;
     margin: 5px;
-    margin-left: 50px;
+    margin-left: 25px;
     margin-bottom: 35px;
     box-shadow: inset 0px 0px 0px 3px #fff !important;
     z-index: 99;
+    font-size: 24px;
 }
 .sw-theme-circles > ul.step-anchor > li > a small{
     position: absolute;

@@ -45,6 +45,7 @@ export default class IndexPage extends React.Component {
   render() {
     return (
       <div id="wrapper"> 
+
          <div className="left-column">
 
             <LeftMenu/> 
