@@ -11,70 +11,91 @@ import BrowserUsage from '../components/dashboard/BrowserUsage';
 import RecentlyProducts from '../components/dashboard/RecentlyProducts';
 import globalStyles from '../styles';
 import Data from '../data';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-const DashboardPage = () => {
-
-  return (
-    <div>
-      <h3 style={globalStyles.navigation}>Application / Dashboard</h3>
-
-      <div className="row">
-
-        <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={ShoppingCart}
-                   color={pink600}
-                   title="Total Profit"
-                   value="1500k"
-          />
-        </div>
+import {Tabs, Tab} from 'material-ui/Tabs';
+import SwipeableViews from 'react-swipeable-views';
+import FontIcon from 'material-ui/FontIcon';
 
 
-        <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={ThumbUp}
-                   color={cyan600}
-                   title="Likes"
-                   value="4231"
-          />
-        </div>
 
-        <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={Assessment}
-                   color={purple600}
-                   title="Sales"
-                   value="460"
-          />
-        </div>
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+  slide: {
+    padding: 10,
+  },
+};
 
-        <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-15 ">
-          <InfoBox Icon={Face}
-                   color={orange600}
-                   title="New Members"
-                   value="248"
-          />
-        </div>
+
+class DashboardPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      slideIndex: 0,
+    };
+  };
+
+  handleChange = (value) => {
+    this.setState({
+      slideIndex: value
+    });
+  };
+
+  render(){
+    return (
+      <div className="main-content" >
+        <div className="main-menu" >
+
+          <Tabs className="main-tabs"
+            onChange={this.handleChange}
+            value={this.state.slideIndex}
+            
+          >
+            <Tab icon={<FontIcon className="material-icons">account_circle</FontIcon>} value={0} />
+            <Tab icon={<FontIcon className="material-icons">history</FontIcon>} value={1} />
+            <Tab icon={<FontIcon className="material-icons">school</FontIcon>} value={2} />
+            <Tab icon={<FontIcon className="material-icons">supervisor_account</FontIcon>} value={3} />            
+            <Tab icon={<FontIcon className="material-icons">account_balance</FontIcon>} value={4} />
+            <Tab icon={<FontIcon className="material-icons">place</FontIcon>} value={5} />
+          </Tabs>
+          <SwipeableViews
+            index={this.state.slideIndex}
+            onChangeIndex={this.handleChange}
+          >
+            <div>
+              <h2 style={styles.headline}>Tabs with slide effect</h2>
+              Swipe to see the next slide.<br />
+            </div>
+            <div style={styles.slide}>
+              slide n°2
+            </div>
+            <div style={styles.slide}>
+              slide n°3
+            </div>
+             <div style={styles.slide}>
+              slide n°4
+            </div>
+             <div style={styles.slide}>
+              slide n°5
+            </div>
+             <div style={styles.slide}>
+              slide n°6
+            </div>
+          </SwipeableViews>
+     
+        </div>   
       </div>
-
-      <div className="row">
-        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md m-b-15">
-          <NewOrders data={Data.dashBoardPage.newOrders}/>
-        </div>
-
-        <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6 m-b-15">
-          <MonthlySales data={Data.dashBoardPage.monthlySales}/>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-          <RecentlyProducts data={Data.dashBoardPage.recentProducts}/>
-        </div>
-
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 m-b-15 ">
-          <BrowserUsage data={Data.dashBoardPage.browserUsage}/>
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default DashboardPage;

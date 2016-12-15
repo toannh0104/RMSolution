@@ -31,6 +31,152 @@ a:hover {
   margin-bottom: 15px
 }
 
+/* SmartWizard Theme: Circles */
+.sw-theme-circles{
+    /*box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);*/ 
+}
+.sw-theme-circles .sw-container {
+    min-height: 410px;
+}
+.sw-theme-circles .step-content { 
+    padding: 10px 0;     
+    border: 0px solid #D4D4D4;    
+    background-color: #FFF;
+    text-align: left;
+}
+.sw-theme-circles .sw-toolbar{
+    background: #fff;
+    border-radius: 0 !important; 
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0 !important;
+}
+.sw-theme-circles .sw-toolbar-top{
+    margin-top: -40px;
+    border-bottom-color: #ddd !important;
+}
+.sw-theme-circles .sw-toolbar-bottom{
+    border-top-color: #ddd !important;
+    border-bottom-color: #ddd !important;
+}
+.sw-theme-circles > ul.step-anchor{
+    background: #fff;
+    display: block;
+    border: 0px solid #ccc !important;
+    
+}
+.sw-theme-circles > ul.step-anchor:before {
+    top: 40px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 5px;
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    z-order: 0;
+}
+.sw-theme-circles > ul.step-anchor > li > a{
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    padding: 15px 0;
+    padding-top: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    margin: 5px;
+    margin-left: 25px;
+    margin-bottom: 35px;
+    box-shadow: inset 0px 0px 0px 3px #fff !important;
+    z-index: 99;
+    font-size: 24px;
+}
+.sw-theme-circles > ul.step-anchor > li > a small{
+    position: absolute;
+    bottom: -35px;
+    display: block;
+}
+.sw-theme-circles > ul.step-anchor > li > a, .sw-theme-circles > ul.step-anchor > li > a:hover  { 
+    color: #bbb; 
+    text-decoration: none;
+    outline-style:none;
+    background: #fff !important;
+}
+.sw-theme-circles > ul.step-anchor > li.clickable > a:hover {
+    color: #4285F4 !important; 
+}
+.sw-theme-circles > ul.step-anchor > li.active > a { 
+    border-color: #4285F4 !important; 
+    color: #4285F4 !important; 
+    background: #fff !important; 
+}
+.sw-theme-circles > ul.step-anchor > li.done > a { 
+    border-color: #5cb85c !important; 
+    color: #5cb85c !important; 
+    background: #fff !important; 
+}
+.sw-theme-circles > ul.step-anchor > li.danger > a { 
+    border-color: #d9534f !important; 
+    color: #d9534f !important; 
+    background: #fff !important; 
+}
+.sw-theme-circles > ul.step-anchor > li.disabled > a, .sw-theme-circles > ul.step-anchor > li.disabled > a:hover {
+    color: #eee !important;
+}
+
+/* Loader Animation 
+Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
+*/
+@-webkit-keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-moz-keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-o-keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes ld {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.sw-theme-circles > ul.step-anchor > li.loading:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    background: transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: #4285f4;
+    border-right-color: #4285f4;
+    top: 50%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+    width: 32px;
+    height: 32px;
+    -webkit-animation: ld 1s ease-in-out infinite;
+    -moz-animation:    ld 1s ease-in-out infinite;
+    -o-animation:      ld 1s ease-in-out infinite;
+    animation:         ld 1s ease-in-out infinite;
+}
+
+
+
+
+
 
 .header{
   background:#3f51b5 !important;
@@ -50,7 +196,8 @@ a:hover {
 }
 .drawer-container{
   background-color:#fff !important;
-  top:auto !important;
+  top:57px !important;
+  position:absolute !important;
 }
 .employees-info-name{
   font-weight:bold;
@@ -69,10 +216,33 @@ a:hover {
   display:none !important;
 }
 .employees-menu-nav{
-  padding-left:0px !important;
-  padding-right:5px !important;
+  padding-left:5px !important;
   background:#5c6bc0 !important;
 }
 .white-color{
   color:white;
+}
+.main-tabs > div:first-child{
+  background:#5c6bc0 !important;
+  height:55px;
+}
+.main-tabs > div:nth-child(2) > div:first-child{
+  background:#880e4f !important;
+}
+.add_emp{
+  font-size: 45px;
+  color: red;
+  top: -64px;          
+}
+.add-emp-btn, .add-emp-btn>button{
+  float: right;
+  position: relative;
+  background: transparent !important; 
+}
+.add-emp-btn i{
+  color:#e91e63;
+  font-size:50px;
+}
+.tbl-add-emp::parent{
+  background:red !important;
 }

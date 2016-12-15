@@ -13,7 +13,7 @@ import ViewModule from 'material-ui/svg-icons/action/view-module';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-
+import AddEmployee from './AddEmployee';
 
 const LeftDrawer = (props) => {
   let { navDrawerOpen } = props;
@@ -57,16 +57,11 @@ const LeftDrawer = (props) => {
 
               iconElementRight={
                 <div>
-                <IconMenu color={white}
-                            iconButtonElement={
-                              <IconButton className="filter-btn white-color">
-                                <i className="material-icons">delete</i>
-                              </IconButton>
-                            }
-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                  >
-                  </IconMenu>
+                
+                  <IconButton className="filter-btn white-color">
+                    <i className="material-icons">delete</i>
+                  </IconButton>
+                    
                   <IconMenu color={white}
                             iconButtonElement={
                               <IconButton className="sort-btn white-color" >
@@ -93,7 +88,7 @@ const LeftDrawer = (props) => {
                 </div>
               }
             />
-        </div>
+        </div> {/*end menu*/}
 
           {props.menus.map((menu, index) =>
              <div style={styles.avatar.div} className="menu-item">
@@ -117,8 +112,9 @@ const LeftDrawer = (props) => {
 
             </div>
           )}
+            <AddEmployee/>
         </div>
-       
+        
     </Drawer>
   );
 };
