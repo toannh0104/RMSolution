@@ -3,14 +3,25 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Menu from 'material-ui/svg-icons/navigation/menu';
-import ViewModule from 'material-ui/svg-icons/action/view-module';
+
+import ActionSettings from 'material-ui/svg-icons/action/settings'
 import {white} from 'material-ui/styles/colors';
-import SearchBox from './SearchBox';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import Avatar from 'material-ui/Avatar';
+import FontIcon from 'material-ui/FontIcon';
 
 class Header extends React.Component {
 
+   constructor(props) {
+    super(props);
+
+    this.state = {
+      dataSource: [],
+    };
+  }
+ 
   render() {
     const {styles, handleChangeRequestNavDrawer} = this.props;
 
@@ -28,35 +39,53 @@ class Header extends React.Component {
         marginLeft: 20
       }
     };
-
+    console.log("stateee");
     return (
         <div>
-            <AppBar
-              style={{...styles, ...style.appBar}}
-              title={
-                <SearchBox />
-              }
-              iconElementLeft={
-                  <IconButton style={style.menuButton} onClick={handleChangeRequestNavDrawer}>
-                    <Menu color={white} />
-                  </IconButton>
-              }
-              iconElementRight={
+            <AppBar className="header" 
+
+                iconElementLeft={
+                  <div className="header-left-items">
+                    <table>
+                      <tr>
+                        <td>
+                          <IconButton onClick={handleChangeRequestNavDrawer}><Menu color={white} /></IconButton>
+                        </td>
+                        <td>
+                          <Avatar className="avatar" src="https://static-s.aa-cdn.net/img/ios/985085520/8518f062afc5f2df9bdbea106ce26888?v=1" />
+                        </td>
+                        <td>
+                          <div className="account-info" >
+                            Nguyen Hai Toan <br/>
+                            <span>SE - AP</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    
+                  </div>
+                }
+
+                iconElementRight={
                 <div style={style.iconsRightContainer}>
+
                   <IconMenu color={white}
-                            iconButtonElement={
-                              <IconButton><ViewModule color={white}/></IconButton>
+                            iconButtonElement={                              
+                              <IconButton><ActionSettings color={white}/></IconButton>
                             }
                             targetOrigin={{horizontal: 'right', vertical: 'top'}}
                             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                   >
-                    <MenuItem key={1} primaryText="Application 1"/>
+                    <MenuItem key={1} primaryText="Setting 01"/>
                     <MenuItem key={2} primaryText="Application 2"/>
                     <MenuItem key={3} primaryText="Application 3"/>
                   </IconMenu>
+
                   <IconMenu color={white}
                             iconButtonElement={
-                              <IconButton><MoreVertIcon color={white}/></IconButton>
+                              <IconButton>
+                              <i className="material-icons white-color">power_settings_new</i>
+                              </IconButton>
                             }
                             targetOrigin={{horizontal: 'right', vertical: 'top'}}
                             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -65,7 +94,8 @@ class Header extends React.Component {
                   </IconMenu>
                 </div>
               }
-            />
+
+             />
           </div>
       );
   }

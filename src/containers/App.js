@@ -43,17 +43,21 @@ class App extends React.Component {
 
     return (
       <MuiThemeProvider muiTheme={ThemeDefault}>
+
         <div>
+       
           <Header styles={styles.header}
                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
 
             <LeftDrawer navDrawerOpen={navDrawerOpen}
                         menus={Data.menus}
                         username="User Admin"/>
-
+{/*
             <div style={styles.container}>
               {this.props.children}
             </div>
+*/}
+        
         </div>
       </MuiThemeProvider>
     );

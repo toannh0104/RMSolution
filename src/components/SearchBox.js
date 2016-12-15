@@ -13,7 +13,6 @@ const SearchBox = () => {
     },
     textField: {
       color: white,
-      backgroundColor: blue500,
       borderRadius: 2,
       height: 35
     },

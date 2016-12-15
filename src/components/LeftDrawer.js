@@ -5,30 +5,29 @@ import {white, blue600} from 'material-ui/styles/colors';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router';
 import Avatar from 'material-ui/Avatar';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import SearchBox from './SearchBox';
+import ViewModule from 'material-ui/svg-icons/action/view-module';
+import Menu from 'material-ui/svg-icons/navigation/menu';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+
 
 const LeftDrawer = (props) => {
   let { navDrawerOpen } = props;
 
   const styles = {
-    logo: {
-      cursor: 'pointer',
-      fontSize: 22,
-      color: typography.textFullWhite,
-      lineHeight: `${spacing.desktopKeylineIncrement}px`,
-      fontWeight: typography.fontWeightLight,
-      backgroundColor: blue600,
-      paddingLeft: 40,
-      height: 56,
-    },
+
     menuItem: {
       color: white,
       fontSize: 14
     },
     avatar: {
       div: {
-        padding: '15px 0 20px 15px',
-        backgroundImage:  'url(' + require('../images/material_bg.png') + ')',
-        height: 45
+        padding: '15px 0 20px 15px',        
+        height: 45        
       },
       icon: {
         float: 'left',
@@ -36,40 +35,90 @@ const LeftDrawer = (props) => {
         marginRight: 15,
         boxShadow: '0px 0px 0px 8px rgba(0,0,0,0.2)'
       },
-      span: {
-        paddingTop: 12,
-        display: 'block',
-        color: 'white',
-        fontWeight: 300,
-        textShadow: '1px 1px #444'
-      }
     }
   };
-
+  var drawerWidth=  screen.width * 30/100;
   return (
-    <Drawer
+    <Drawer className="drawer" containerClassName="drawer-container" overlayClassName="drawer-overlay"
+      width={drawerWidth}
       docked={true}
-      open={navDrawerOpen}>
+      open={navDrawerOpen} >
+
         <div style={styles.logo}>
-          Material Admin
+          
         </div>
-        <div style={styles.avatar.div}>
-          <Avatar src="http://www.material-ui.com/images/uxceo-128.jpg"
-                  size={50}
-                  style={styles.avatar.icon}/>
-          <span style={styles.avatar.span}>{props.username}</span>
-        </div>
-        <div>
-          {props.menus.map((menu, index) =>
-            <MenuItem
-              key={index}
-              style={styles.menuItem}
-              primaryText={menu.text}
-              leftIcon={menu.icon}
-              containerElement={<Link to={menu.link}/>}
+        <div className="employees">
+        <div className="employees-menu">
+          <AppBar className="employees-menu-nav"
+              title={
+                <SearchBox />
+              }
+              iconElementLeft={<IconButton className="hide-icon" ><NavigationClose /></IconButton>}
+
+              iconElementRight={
+                <div>
+                <IconMenu color={white}
+                            iconButtonElement={
+                              <IconButton className="filter-btn white-color">
+                                <i className="material-icons">delete</i>
+                              </IconButton>
+                            }
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                  >
+                  </IconMenu>
+                  <IconMenu color={white}
+                            iconButtonElement={
+                              <IconButton className="sort-btn white-color" >
+                                <i className="material-icons">sort</i>
+                              </IconButton>
+                            }
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                  >
+                    <MenuItem key={1} primaryText="sort"/>
+                    <MenuItem key={2} primaryText="sort 2"/>
+                  </IconMenu>
+                  <IconMenu color={white}
+                            iconButtonElement={
+                              <IconButton className="filter-btn white-color">
+                                <i className="material-icons">format_line_spacing</i>
+                              </IconButton>
+                            }
+                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                  >
+                    
+                  </IconMenu>
+                </div>
+              }
             />
+        </div>
+
+          {props.menus.map((menu, index) =>
+             <div style={styles.avatar.div} className="menu-item">
+              <Avatar src="http://www.material-ui.com/images/uxceo-128.jpg"
+                      size={50}
+                      style={styles.avatar.icon}/>
+
+              <div className="cleft">
+                <div className="employees-info-name" >{props.username}</div>
+                <div className="employees-info">SE - AP</div>
+                <div className="employees-info">Bali - +849490123123123</div>
+              </div>
+              <div className="cright">
+                <div className="employees-info-name" >03/01/2017</div>
+                <div className="employees-info">
+                  <i className="material-icons">adjust</i>
+                  <i className="material-icons">keyboard_arrow_right</i>
+                </div>
+
+              </div>
+
+            </div>
           )}
         </div>
+       
     </Drawer>
   );
 };

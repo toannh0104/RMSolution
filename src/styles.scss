@@ -30,3 +30,49 @@ a:hover {
 .m-b-15 {
   margin-bottom: 15px
 }
+
+
+.header{
+  background:#3f51b5 !important;
+}
+.drawer div:first-child{
+  z-index:1000 !important
+}
+.account-info{
+  color:#fff;
+}
+
+.menu-item{
+  border-bottom:solid 1px #aeaeae;
+}
+.menu-item:hover{
+  border-bottom:solid 1px #880e4f;
+}
+.drawer-container{
+  background-color:#fff !important;
+  top:auto !important;
+}
+.employees-info-name{
+  font-weight:bold;
+  font-size:14px;
+  line-height:normal;
+}
+.employees-info{
+  line-height:normal;
+  font-size:12px;
+}
+.cleft{
+  float:left;
+  width:60%;
+}
+.hide-icon{
+  display:none !important;
+}
+.employees-menu-nav{
+  padding-left:0px !important;
+  padding-right:5px !important;
+  background:#5c6bc0 !important;
+}
+.white-color{
+  color:white;
+}
