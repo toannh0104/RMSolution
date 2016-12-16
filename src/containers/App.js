@@ -29,9 +29,11 @@ class App extends React.Component {
 
   render() {
     let { navDrawerOpen } = this.state;
-    var drawerWidth=  screen.width * 30/100;
-
-    const paddingLeftDrawerOpen = drawerWidth;
+    var widthDrawer = screen.width * 30/100;
+    if(screen.width < 405){
+      widthDrawer = screen.width;
+    }
+    const paddingLeftDrawerOpen = widthDrawer;
 
     const styles = {
       header: {
@@ -52,14 +54,13 @@ class App extends React.Component {
                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
 
             <LeftDrawer navDrawerOpen={navDrawerOpen}
-                        menus={Data.menus}
+                        menus={Data.menus} width={paddingLeftDrawerOpen}
                         username="User Admin"/>
 
             <div style={styles.container}>
               {this.props.children}
             </div>
 
-        
         </div>
       </MuiThemeProvider>
     );

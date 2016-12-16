@@ -8,19 +8,22 @@ import {
   Step,
   Stepper,
   StepLabel,
+  StepButton,
 } from 'material-ui/Stepper';
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
+import DatePicker from 'material-ui/DatePicker';
 
 
 $(document).ready(function(){
 
-
+$(".add-emp-btn").draggable({containment:$(".employees"), scroll:false});
         $("#geocomplete").geocomplete({
           map: ".map_canvas",
           details: "form ",
+          location: "ha noi",
           markerOptions: {
             draggable: true
           }
@@ -52,7 +55,7 @@ class AddEmployee extends React.Component {
 	    super(props);
 	    this.state = {
 	       open: false,
-	       finished: false,
+		   finished: false,
     	   stepIndex: 0,
 
     	   fixedHeader: true,
@@ -66,7 +69,9 @@ class AddEmployee extends React.Component {
 	      showCheckboxes: true,
 	      height: '600px',
 	    };
-	  };
+
+	    this.initMap= this.initMap.bind(this);
+	};
 
 	handleOpen = () => {
 	    this.setState({open: true});
@@ -76,16 +81,45 @@ class AddEmployee extends React.Component {
 		this.setState({open: false});
 	};
 
+	handleReset = (event) => {		
+      event.preventDefault();
+      this.setState({stepIndex: 0, finished: false});
+      $(".gmap-next-btn").removeAttr('disabled');
+	}
+
 	 handleNext = () => {
 	    const {stepIndex} = this.state;
-	    this.setState({
-	      stepIndex: stepIndex + 1,
-	      finished: stepIndex >= 5,
-	    });
+	    if(stepIndex < 5){
+		    this.setState({
+		      stepIndex: stepIndex + 1
+		    });
+	    }
+
+	    console.log("next: "+(stepIndex+1));
+
+	    if(stepIndex === 4){
+			this.initMap();
+			$(".gmap-next-btn").prop('disabled', true);
+	    }
 	  };
 
+	  initMap(){
+	  	setTimeout(function(){
+				$("#geocomplete").geocomplete({
+	          map: ".map_canvas",
+	          details: "form ",
+	          location: "Hanoi",
+	          markerOptions: {
+	            draggable: true
+	          }
+	        });
+			}, 100);	  	
+	  }
+
 	  handlePrev = () => {
-	    const {stepIndex} = this.state;
+	    const {stepIndex} = this.state;	    
+	    console.log("prev: "+stepIndex);
+	    $(".gmap-next-btn").removeAttr('disabled');
 	    if (stepIndex > 0) {
 	      this.setState({stepIndex: stepIndex - 1});
 	    }
@@ -113,24 +147,6 @@ class AddEmployee extends React.Component {
 	          selectable={false}
 	          multiSelectable={false}
 	        >
-				{/*<TableHeader
-		            displaySelectAll={this.state.showCheckboxes}
-		            adjustForCheckbox={this.state.showCheckboxes}
-		            enableSelectAll={this.state.enableSelectAll}
-		          >
-		            <TableRow>
-		              <TableHeaderColumn colSpan="3" tooltip="Super Header" style={{textAlign: 'center'}}>
-		                Super Header
-		              </TableHeaderColumn>
-		            </TableRow>
-		            <TableRow>
-		              <TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
-		              <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
-		              <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
-		            </TableRow>
-		          </TableHeader>
-
-*/}
 				<TableBody className="tbl-body"
 		            displayRowCheckbox={false}
 		            deselectOnClickaway={this.state.deselectOnClickaway}
@@ -139,40 +155,166 @@ class AddEmployee extends React.Component {
 		          >
 		
 		    		<TableRow>
-		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
-		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="First Name" floatingLabelText="First Name"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Sub Division" floatingLabelText="Sub Division"/></TableRowColumn>
 		            </TableRow>
 		            <TableRow>
 		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
 		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
 		            </TableRow>
 		            <TableRow>
-		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
-		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Gender" floatingLabelText="Gender"/></TableRowColumn>
+		              <TableRowColumn>
+		                  <DatePicker hintText="Suspend Date" mode="landscape" />
+		              </TableRowColumn>
 		            </TableRow>
 		            <TableRow>
-		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
-		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+		              <TableRowColumn>
+		              	<DatePicker hintText="Date Of Birth" mode="landscape" />		              
+		              </TableRowColumn>
+		              <TableRowColumn>
+		              	<DatePicker hintText="Hired Date" mode="landscape" />
+		              </TableRowColumn>
 		            </TableRow>
 		            <TableRow>
-		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
-		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Phone" floatingLabelText="Phone"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Grade" floatingLabelText="Grade"/></TableRowColumn>
 		            </TableRow>
 		            <TableRow>
-		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
-		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Marital Status" floatingLabelText="Marital Status"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Division" floatingLabelText="Please Choose"/></TableRowColumn>
 		            </TableRow>
 		         </TableBody>
 			</Table>
 	        	);
 	      case 1:
-	        return 'hello';
+	        return (
+			<Table className="tbl-add-emp"
+	          height={this.state.height}
+	          fixedHeader={this.state.fixedHeader}
+	          fixedFooter={this.state.fixedFooter}
+	          selectable={false}
+	          multiSelectable={false}
+	        >
+				<TableBody className="tbl-body"
+		            displayRowCheckbox={false}
+		            deselectOnClickaway={this.state.deselectOnClickaway}
+		            showRowHover={this.state.showRowHover}
+		            stripedRows={this.state.stripedRows}
+		          >
+		
+		    		<TableRow>
+		              <TableRowColumn><TextField hintText="Company" floatingLabelText="Company"/></TableRowColumn>
+		            
+		            </TableRow>
+		            	           
+		            <TableRow>
+		              <TableRowColumn><TextField hintText="Position" floatingLabelText="Position"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>		              
+		            </TableRow>
+		            <TableRow>
+		              <TableRowColumn>
+		              	<DatePicker hintText="From Date" mode="landscape" />
+		              </TableRowColumn>
+		              <TableRowColumn>
+		                  <DatePicker hintText="To Date" mode="landscape" />
+		              </TableRowColumn>
+		            </TableRow>
+		         </TableBody>
+			</Table>
+	        	);
 	      case 2:
-	        return 'Grade';
+	        return (
+			<Table className="tbl-add-emp"
+	          height={this.state.height}
+	          fixedHeader={this.state.fixedHeader}
+	          fixedFooter={this.state.fixedFooter}
+	          selectable={false}
+	          multiSelectable={false}
+	        >
+				<TableBody className="tbl-body"
+		            displayRowCheckbox={false}
+		            deselectOnClickaway={this.state.deselectOnClickaway}
+		            showRowHover={this.state.showRowHover}
+		            stripedRows={this.state.stripedRows}
+		          >
+		
+		    		<TableRow>
+		              <TableRowColumn><TextField hintText="Grade" floatingLabelText="Grade"/></TableRowColumn>
+		            </TableRow>
+					<TableRow>		            
+		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>
+		            </TableRow>
+		            <TableRow>
+		              <TableRowColumn>
+		              	<DatePicker hintText="From Date" mode="landscape" />
+		              </TableRowColumn>
+		              <TableRowColumn>
+		                  <DatePicker hintText="To Date" mode="landscape" />
+		              </TableRowColumn>
+		            </TableRow>
+		         </TableBody>
+			</Table>
+	        	);
 	      case 3:
-	        return 'Dependents';
+	        return (
+			<Table className="tbl-add-emp"
+	          height={this.state.height}
+	          fixedHeader={this.state.fixedHeader}
+	          fixedFooter={this.state.fixedFooter}
+	          selectable={false}
+	          multiSelectable={false}
+	        >
+				<TableBody className="tbl-body"
+		            displayRowCheckbox={false}
+		            deselectOnClickaway={this.state.deselectOnClickaway}
+		            showRowHover={this.state.showRowHover}
+		            stripedRows={this.state.stripedRows}
+		          >
+		
+		    		<TableRow>
+		              <TableRowColumn><TextField hintText="Name" floatingLabelText="Name"/></TableRowColumn>
+		              <TableRowColumn><TextField hintText="Relation" floatingLabelText="Relation"/></TableRowColumn>
+		            </TableRow>
+					<TableRow>		            
+		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>
+		            </TableRow>
+		         </TableBody>
+			</Table>
+	        	);
 	      case 4:
-	        return 'Home';
+	        return (
+			<Table className="tbl-add-emp"
+	          height={this.state.height}
+	          fixedHeader={this.state.fixedHeader}
+	          fixedFooter={this.state.fixedFooter}
+	          selectable={false}
+	          multiSelectable={false}
+	        >
+				<TableBody className="tbl-body"
+		            displayRowCheckbox={false}
+		            deselectOnClickaway={this.state.deselectOnClickaway}
+		            showRowHover={this.state.showRowHover}
+		            stripedRows={this.state.stripedRows}
+		          >
+		
+		    		<TableRow>
+		              <TableRowColumn><TextField hintText="Address" floatingLabelText="Address"/></TableRowColumn>
+		            </TableRow>
+					<TableRow>		            
+		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>
+		            </TableRow>
+		            <TableRow>
+		              <TableRowColumn>
+		              	<DatePicker hintText="From Date" mode="landscape" />
+		              </TableRowColumn>
+		              <TableRowColumn>
+		                  <DatePicker hintText="To Date" mode="landscape" />
+		              </TableRowColumn>
+		            </TableRow>
+		         </TableBody>
+			</Table>
+	        	);
 	      case 5:
 	        return (
 	        	<div>
@@ -184,8 +326,8 @@ class AddEmployee extends React.Component {
       <input id="geocomplete" type="text" placeholder="Type in an address" />
       <input id="find" type="button" value="find" />
       
-      <fieldset>
-        <label>L1atitude</label>
+      <fieldset className="hide">
+        <label>Latitude</label>
         <input name="lat" type="text" />
       
         <label>Longitude</label>
@@ -194,8 +336,6 @@ class AddEmployee extends React.Component {
         <label>Formatted Address</label>
         <input name="formatted_address" type="text" />
       </fieldset>
-      
-      <a id="reset" href="#" >Reset Marker</a>
     </form>
 
 	        	</div>
@@ -207,7 +347,9 @@ class AddEmployee extends React.Component {
 
 
 	doClick(){
-		alert();
+		//alert();
+
+
 	};
 
 	render(){
@@ -240,35 +382,12 @@ class AddEmployee extends React.Component {
 		};
 
 		const actions = [
-		<FlatButton
-	        label="Back"
-	        primary={false}
-	        onTouchTap={this.handlePrev}
-	      />,
-	      <FlatButton
-	        label="Next"
-	        primary={true}
-	        onTouchTap={this.handleNext}
-	      />,
-	      <FlatButton
-	        label="Reset"
-	        secondary={true}
-	        onTouchTap={(event) => {
-		                  event.preventDefault();
-		                  this.setState({stepIndex: 0, finished: false});
-		                }}
-	      />,
+		<FlatButton label="Back" primary={false} onTouchTap={this.handlePrev}  className="gmap-back-btn"/>,
+	    <button onTouchTap={this.handleNext} className="gmap-next-btn">Next</button>,
+	    <FlatButton className="gmap-reset-btn" label="Reset" secondary={true} onTouchTap={this.handleReset} />,
 
-	      <FlatButton
-	        label="Cancel"
-	        primary={true}
-	        onTouchTap={this.handleClose}
-	      />,
-	      <FlatButton
-	        label="Submit"
-	        primary={true}
-	        onTouchTap={this.handleClose}
-	      />,
+	      <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
+	      <FlatButton label="Submit" primary={true} onTouchTap={this.handleClose} />,
 	    ];
 
 	    const {finished, stepIndex} = this.state;
@@ -276,11 +395,10 @@ class AddEmployee extends React.Component {
 
 		return(
 			<div>
-		        <RaisedButton className="add-emp-btn material-icons add_emp" onTouchTap={this.handleOpen}
-		        	icon = { <IconButton className="add-employee">
+		        <div className="add-emp-btn" onTouchTap={this.handleOpen} >		        	
                     <i className="material-icons">add_circle</i>
-                  </IconButton>}
-		         />
+                </div>
+
 		        <Dialog className="emp-diag"
 		          title="Add Employee"
 		          actions={actions}
@@ -291,31 +409,41 @@ class AddEmployee extends React.Component {
 		          <div className="dialog-content">
 
 					<div style={{width: '100%', maxWidth: 800, margin: 'auto'}}>
-				        <Stepper activeStep={stepIndex}>
+				        <Stepper activeStep={stepIndex} linear={false}>
 				          <Step>
-				            <StepLabel>General info</StepLabel>
+					          <StepButton onClick={() => this.setState({stepIndex: 0})} className="btn-steps" >
+					              General info
+					          </StepButton>				            
 				          </Step>
 				          <Step>
-				            <StepLabel>history</StepLabel>
+					          <StepButton onClick={() => this.setState({stepIndex: 1})}  className="btn-steps">
+					              History
+					          </StepButton>
 				          </Step>
 				          <Step>
-				            <StepLabel>Grade</StepLabel>
+					          	<StepButton onClick={() => this.setState({stepIndex: 2})} className="btn-steps">
+					              Grade
+					          </StepButton>
 				          </Step>
 				          <Step>
-				            <StepLabel>Dependents</StepLabel>
+				            <StepButton onClick={() => this.setState({stepIndex: 3})} className="btn-steps">
+				              Dependents 
+				          </StepButton>
 				          </Step>
 				          <Step>
-				            <StepLabel>Place</StepLabel>
+				            <StepButton onClick={() => this.setState({stepIndex: 4})} className="btn-steps">
+				              Address
+				          </StepButton>
 				          </Step>
 				          <Step>
-				            <StepLabel>Location</StepLabel>
+				            <StepButton onClick={() => {this.setState({stepIndex: 5}); this.initMap(); } }  className="btn-steps">
+				              location
+				          </StepButton>
 				          </Step>
 				        </Stepper>
 				        <div style={contentStyle}>
 				          {finished ? (
-				            <p>
-				              d
-				            </p>
+				          		<div></div>
 				          ) : (
 				            <div>
 				              <p>{this.getStepContent(stepIndex)}</p>

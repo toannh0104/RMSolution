@@ -16,7 +16,7 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import AddEmployee from './AddEmployee';
 
 const LeftDrawer = (props) => {
-  let { navDrawerOpen } = props;
+  let { navDrawerOpen, width } = props;
 
   const styles = {
 
@@ -37,10 +37,9 @@ const LeftDrawer = (props) => {
       },
     }
   };
-  var drawerWidth=  screen.width * 30/100;
   return (
     <Drawer className="drawer" containerClassName="drawer-container" overlayClassName="drawer-overlay"
-      width={drawerWidth}
+      width={width}
       docked={true}
       open={navDrawerOpen} >
 
