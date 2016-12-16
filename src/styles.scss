@@ -246,3 +246,27 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
 .tbl-add-emp::parent{
   background:red !important;
 }
+.emp-diag h3:first-child{
+  padding:15px !important;
+}
+.dialog-content>div>div:first-child{
+  margin-top:-20px !important;
+}
+.dialog-content>div>div:nth-child(2){
+  margin-top:-30px !important;
+}
+.emp-diag h3:first-child + div{
+  max-height: 500px !important;
+}
+#geocomplete { width: 200px}
+
+.map_canvas { 
+  width: 600px; 
+  height: 400px; 
+  margin: 10px 20px 10px 0;
+}
+
+#multiple li { 
+  cursor: pointer; 
+  text-decoration: underline; 
+}

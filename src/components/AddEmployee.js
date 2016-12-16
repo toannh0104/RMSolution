@@ -15,6 +15,37 @@ import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 
 
+$(document).ready(function(){
+
+
+        $("#geocomplete").geocomplete({
+          map: ".map_canvas",
+          details: "form ",
+          markerOptions: {
+            draggable: true
+          }
+        });
+        
+        $("#geocomplete").bind("geocode:dragged", function(event, latLng){
+          $("input[name=lat]").val(latLng.lat());
+          $("input[name=lng]").val(latLng.lng());
+          $("#reset").show();
+        });
+        
+        
+        $("#reset").click(function(){
+          $("#geocomplete").geocomplete("resetMarker");
+          $("#reset").hide();
+          return false;
+        });
+        
+        $("#find").click(function(){
+          $("#geocomplete").trigger("geocode");
+        }).click();
+
+
+})
+
 class AddEmployee extends React.Component {
 
 	constructor(props) {
@@ -33,7 +64,7 @@ class AddEmployee extends React.Component {
 	      enableSelectAll: false,
 	      deselectOnClickaway: true,
 	      showCheckboxes: true,
-	      height: '300px',
+	      height: '600px',
 	    };
 	  };
 
@@ -97,10 +128,10 @@ class AddEmployee extends React.Component {
 		              <TableHeaderColumn tooltip="The Name">Name</TableHeaderColumn>
 		              <TableHeaderColumn tooltip="The Status">Status</TableHeaderColumn>
 		            </TableRow>
-		          </TableHeader>*/}
+		          </TableHeader>
 
-
-				<TableBody
+*/}
+				<TableBody className="tbl-body"
 		            displayRowCheckbox={false}
 		            deselectOnClickaway={this.state.deselectOnClickaway}
 		            showRowHover={this.state.showRowHover}
@@ -131,76 +162,11 @@ class AddEmployee extends React.Component {
 		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
 		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
 		            </TableRow>
-
 		         </TableBody>
 			</Table>
 	        	);
 	      case 1:
-	        return (
-	        	<div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-<div>handleClose</div>
-</div>
-	        	);
+	        return 'hello';
 	      case 2:
 	        return 'Grade';
 	      case 3:
@@ -208,7 +174,32 @@ class AddEmployee extends React.Component {
 	      case 4:
 	        return 'Home';
 	      case 5:
-	        return 'Location';	        
+	        return (
+	        	<div>
+
+
+<div className="map_canvas"></div>
+    
+    <form>
+      <input id="geocomplete" type="text" placeholder="Type in an address" />
+      <input id="find" type="button" value="find" />
+      
+      <fieldset>
+        <label>L1atitude</label>
+        <input name="lat" type="text" />
+      
+        <label>Longitude</label>
+        <input name="lng" type="text" />
+      
+        <label>Formatted Address</label>
+        <input name="formatted_address" type="text" />
+      </fieldset>
+      
+      <a id="reset" href="#" >Reset Marker</a>
+    </form>
+
+	        	</div>
+	        );	        
 	      default:
 	        return 'You\'re a long way from home sonny jim!';
 	    }
@@ -245,9 +236,29 @@ class AddEmployee extends React.Component {
 		const customContentStyle = {
 		  width: '80%',
 		  maxWidth: 'none',
+		  top: '-50px'
 		};
 
 		const actions = [
+		<FlatButton
+	        label="Back"
+	        primary={false}
+	        onTouchTap={this.handlePrev}
+	      />,
+	      <FlatButton
+	        label="Next"
+	        primary={true}
+	        onTouchTap={this.handleNext}
+	      />,
+	      <FlatButton
+	        label="Reset"
+	        secondary={true}
+	        onTouchTap={(event) => {
+		                  event.preventDefault();
+		                  this.setState({stepIndex: 0, finished: false});
+		                }}
+	      />,
+
 	      <FlatButton
 	        label="Cancel"
 	        primary={true}
@@ -270,7 +281,7 @@ class AddEmployee extends React.Component {
                     <i className="material-icons">add_circle</i>
                   </IconButton>}
 		         />
-		        <Dialog
+		        <Dialog className="emp-diag"
 		          title="Add Employee"
 		          actions={actions}
 		          modal={true}
@@ -279,7 +290,7 @@ class AddEmployee extends React.Component {
 		        >
 		          <div className="dialog-content">
 
-					<div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+					<div style={{width: '100%', maxWidth: 800, margin: 'auto'}}>
 				        <Stepper activeStep={stepIndex}>
 				          <Step>
 				            <StepLabel>General info</StepLabel>
@@ -303,32 +314,13 @@ class AddEmployee extends React.Component {
 				        <div style={contentStyle}>
 				          {finished ? (
 				            <p>
-				              <a
-				                href="#"
-				                onClick={(event) => {
-				                  event.preventDefault();
-				                  this.setState({stepIndex: 0, finished: false});
-				                }}
-				              >
-				                Click here
-				              </a> to reset the example.
+				              d
 				            </p>
 				          ) : (
 				            <div>
 				              <p>{this.getStepContent(stepIndex)}</p>
-				              <div style={{marginTop: 12}}>
-				                <FlatButton
-				                  label="Back"
-				                  disabled={stepIndex === 0}
-				                  onTouchTap={this.handlePrev}
-				                  style={{marginRight: 12}}
-				                />
-				                <RaisedButton
-				                  label={stepIndex === 2 ? 'Finish' : 'Next'}
-				                  primary={true}
-				                  onTouchTap={this.handleNext}
-				                />
-				              </div>
+				              
+				             
 				            </div>
 				          )}
 				        </div>
