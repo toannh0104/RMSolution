@@ -1,10 +1,15 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux'
+import { toggleTodo } from '../actions'
+
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Header';
 import LeftDrawer from '../components/LeftDrawer';
 import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
 import Data from '../data';
+
 
 class App extends React.Component {
 
@@ -25,6 +30,10 @@ class App extends React.Component {
     this.setState({
       navDrawerOpen: !this.state.navDrawerOpen
     });
+  }
+
+  handleEmployeeSelect(emoloyee){
+    
   }
 
   render() {
@@ -53,8 +62,8 @@ class App extends React.Component {
           <Header styles={styles.header}
                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
 
-            <LeftDrawer navDrawerOpen={navDrawerOpen}
-                        menus={Data.menus} width={paddingLeftDrawerOpen}
+            <LeftDrawer navDrawerOpen={navDrawerOpen} employees={Data.employees}
+                        width={paddingLeftDrawerOpen}
                         username="User Admin"/>
 
             <div style={styles.container}>

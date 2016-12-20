@@ -14,6 +14,7 @@ import Menu from 'material-ui/svg-icons/navigation/menu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import AddEmployee from './AddEmployee';
+import Chip from 'material-ui/Chip';
 
 const LeftDrawer = (props) => {
   let { navDrawerOpen, width } = props;
@@ -41,7 +42,7 @@ const LeftDrawer = (props) => {
     <Drawer className="drawer" containerClassName="drawer-container" overlayClassName="drawer-overlay"
       width={width}
       docked={true}
-      open={navDrawerOpen} >
+      open={navDrawerOpen}  >
 
         <div style={styles.logo}>
           
@@ -73,35 +74,30 @@ const LeftDrawer = (props) => {
                     <MenuItem key={1} primaryText="sort"/>
                     <MenuItem key={2} primaryText="sort 2"/>
                   </IconMenu>
-                  <IconMenu color={white}
-                            iconButtonElement={
-                              <IconButton className="filter-btn white-color">
-                                <i className="material-icons">format_line_spacing</i>
-                              </IconButton>
-                            }
-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                  >
+                  
+                  <IconButton className="chip-label">
+                    <Chip>999</Chip>
+                  </IconButton>
                     
-                  </IconMenu>
+              
                 </div>
               }
             />
         </div> {/*end menu*/}
 
-          {props.menus.map((menu, index) =>
-             <div style={styles.avatar.div} className="menu-item">
-              <Avatar src="http://www.material-ui.com/images/uxceo-128.jpg"
+          {props.employees.map((emp, index) =>
+             <div style={styles.avatar.div} className="menu-item" key={index} >
+              <Avatar src={emp.avatar}
                       size={50}
                       style={styles.avatar.icon}/>
 
               <div className="cleft">
-                <div className="employees-info-name" >{props.username}</div>
-                <div className="employees-info">SE - AP</div>
-                <div className="employees-info">Bali - +849490123123123</div>
+                <div className="employees-info-name" >{emp.firstName}</div>
+                <div className="employees-info">{emp.grade}</div>
+                <div className="employees-info">{emp.location}</div>
               </div>
               <div className="cright">
-                <div className="employees-info-name" >03/01/2017</div>
+                <div className="employees-info-name" >{emp.hiredDate}</div>
                 <div className="employees-info">
                   <i className="material-icons">adjust</i>
                   <i className="material-icons">keyboard_arrow_right</i>
@@ -111,7 +107,7 @@ const LeftDrawer = (props) => {
 
             </div>
           )}
-            <AddEmployee/>
+          <AddEmployee />
         </div>
         
     </Drawer>

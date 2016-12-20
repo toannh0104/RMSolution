@@ -1,0 +1,1184 @@
+commit 86ab7742c8195bb72997c024a7a824bc40b6c73d
+Author: ToanNH <toan_h@mitrais.com>
+Date:   Tue Dec 20 15:22:58 2016 +0800
+
+    w
+
+diff --git a/package.json b/package.json
+index 391bf29..07aceb9 100644
+--- a/package.json
++++ b/package.json
+@@ -24,6 +24,7 @@
+   "author": "Rafael Zeffa",
+   "license": "MIT",
+   "dependencies": {
++    "bootstrap-material-design": "0.5.10",
+     "flexboxgrid": "6.3.1",
+     "font-awesome": "4.6.3",
+     "history": "3.0.0",
+@@ -35,7 +36,9 @@
+     "react-router": "2.6.1",
+     "react-swipeable-views": "0.8.3",
+     "react-tap-event-plugin": "1.0.0",
+-    "recharts": "0.13.3"
++    "recharts": "0.13.3",
++    "redux-form": "6.3.2",
++    "redux-form-material-ui": "4.1.2"
+   },
+   "devDependencies": {
+     "autoprefixer": "6.4.0",
+diff --git a/src/actions/index.js b/src/actions/index.js
+new file mode 100644
+index 0000000..8f0ab0b
+--- /dev/null
++++ b/src/actions/index.js
+@@ -0,0 +1,22 @@
++let nextTodoId = 0
++export const addTodo = (text) => {
++  return {
++    type: 'ADD_TODO',
++    id: nextTodoId++,
++    text
++  }
++}
++
++export const setVisibilityFilter = (filter) => {
++  return {
++    type: 'SET_VISIBILITY_FILTER',
++    filter
++  }
++}
++
++export const toggleTodo = (id) => {
++  return {
++    type: 'TOGGLE_TODO',
++    id
++  }
++}
+\ No newline at end of file
+diff --git a/src/components/AddEmployee.js b/src/components/AddEmployee.js
+index 2cab7da..4e8cbb9 100644
+--- a/src/components/AddEmployee.js
++++ b/src/components/AddEmployee.js
+@@ -1,466 +1,30 @@
+ import React from 'react';
+-import Dialog from 'material-ui/Dialog';
+-import FlatButton from 'material-ui/FlatButton';
+-import RaisedButton from 'material-ui/RaisedButton';
+-import FontIcon from 'material-ui/FontIcon';
+-import IconButton from 'material-ui/IconButton';
+-import {
+-  Step,
+-  Stepper,
+-  StepLabel,
+-  StepButton,
+-} from 'material-ui/Stepper';
+-import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
+-  from 'material-ui/Table';
+-import TextField from 'material-ui/TextField';
+-import Toggle from 'material-ui/Toggle';
+-import DatePicker from 'material-ui/DatePicker';
+-
++import { Field, reduxForm } from 'redux-form'
++import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}  from 'material-ui/Table';
++import { 
++	AutoComplete as MUIAutoComplete, IconButton, FontIcon, RaisedButton,FlatButton, Dialog, 
++	Step,Stepper,StepLabel,StepButton, DatePicker } from 'material-ui'
+ 
+ $(document).ready(function(){
+-
+-$(".add-emp-btn").draggable({containment:$(".employees"), scroll:false});
+-        $("#geocomplete").geocomplete({
+-          map: ".map_canvas",
+-          details: "form ",
+-          location: "ha noi",
+-          markerOptions: {
+-            draggable: true
+-          }
+-        });
+-        
+-        $("#geocomplete").bind("geocode:dragged", function(event, latLng){
+-          $("input[name=lat]").val(latLng.lat());
+-          $("input[name=lng]").val(latLng.lng());
+-          $("#reset").show();
+-        });
+-        
+-        
+-        $("#reset").click(function(){
+-          $("#geocomplete").geocomplete("resetMarker");
+-          $("#reset").hide();
+-          return false;
+-        });
+-        
+-        $("#find").click(function(){
+-          $("#geocomplete").trigger("geocode");
+-        }).click();
+-
+-
++		$(".add-emp-btn").draggable({containment:$(".employees"), scroll:false});
+ })
+ 
+ class AddEmployee extends React.Component {
+ 
+-	constructor(props) {
+-	    super(props);
+-	    this.state = {
+-	       open: false,
+-		   finished: false,
+-    	   stepIndex: 0,
+-
+-    	   fixedHeader: true,
+-	      fixedFooter: true,
+-	      stripedRows: false,
+-	      showRowHover: false,
+-	      selectable: true,
+-	      multiSelectable: false,
+-	      enableSelectAll: false,
+-	      deselectOnClickaway: true,
+-	      showCheckboxes: true,
+-	      height: '600px',
+-	    };
+-
+-	    this.initMap= this.initMap.bind(this);
+-	};
+-
+-	handleOpen = () => {
+-	    this.setState({open: true});
+-	};
+-
+-	handleClose = () => {
+-		this.setState({open: false});
+-	};
+-
+-	handleReset = (event) => {		
+-      event.preventDefault();
+-      this.setState({stepIndex: 0, finished: false});
+-      $(".gmap-next-btn").removeAttr('disabled');
+-	}
+-
+-	 handleNext = () => {
+-	    const {stepIndex} = this.state;
+-	    if(stepIndex < 5){
+-		    this.setState({
+-		      stepIndex: stepIndex + 1
+-		    });
+-	    }
+-
+-	    console.log("next: "+(stepIndex+1));
+-
+-	    if(stepIndex === 4){
+-			this.initMap();
+-			$(".gmap-next-btn").prop('disabled', true);
+-	    }
+-	  };
+-
+-	  initMap(){
+-	  	setTimeout(function(){
+-				$("#geocomplete").geocomplete({
+-	          map: ".map_canvas",
+-	          details: "form ",
+-	          location: "Hanoi",
+-	          markerOptions: {
+-	            draggable: true
+-	          }
+-	        });
+-			}, 100);	  	
+-	  }
+-
+-	  handlePrev = () => {
+-	    const {stepIndex} = this.state;	    
+-	    console.log("prev: "+stepIndex);
+-	    $(".gmap-next-btn").removeAttr('disabled');
+-	    if (stepIndex > 0) {
+-	      this.setState({stepIndex: stepIndex - 1});
+-	    }
+-	  };
+-
+-	  handleToggle = (event, toggled) => {
+-	    this.setState({
+-	      [event.target.name]: toggled,
+-	    });
+-	  };
+-
+-	  handleChange = (event) => {
+-	    this.setState({height: event.target.value});
+-	  };
+-
+-
+-	  getStepContent(stepIndex) {
+-	    switch (stepIndex) {
+-	      case 0:
+-	        return (
+-			<Table className="tbl-add-emp"
+-	          height={this.state.height}
+-	          fixedHeader={this.state.fixedHeader}
+-	          fixedFooter={this.state.fixedFooter}
+-	          selectable={false}
+-	          multiSelectable={false}
+-	        >
+-				<TableBody className="tbl-body"
+-		            displayRowCheckbox={false}
+-		            deselectOnClickaway={this.state.deselectOnClickaway}
+-		            showRowHover={this.state.showRowHover}
+-		            stripedRows={this.state.stripedRows}
+-		          >
+-		
+-		    		<TableRow>
+-		              <TableRowColumn><TextField hintText="First Name" floatingLabelText="First Name"/></TableRowColumn>
+-		              <TableRowColumn><TextField hintText="Sub Division" floatingLabelText="Sub Division"/></TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
+-		              <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn><TextField hintText="Gender" floatingLabelText="Gender"/></TableRowColumn>
+-		              <TableRowColumn>
+-		                  <DatePicker hintText="Suspend Date" mode="landscape" />
+-		              </TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn>
+-		              	<DatePicker hintText="Date Of Birth" mode="landscape" />		              
+-		              </TableRowColumn>
+-		              <TableRowColumn>
+-		              	<DatePicker hintText="Hired Date" mode="landscape" />
+-		              </TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn><TextField hintText="Phone" floatingLabelText="Phone"/></TableRowColumn>
+-		              <TableRowColumn><TextField hintText="Grade" floatingLabelText="Grade"/></TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn><TextField hintText="Marital Status" floatingLabelText="Marital Status"/></TableRowColumn>
+-		              <TableRowColumn><TextField hintText="Division" floatingLabelText="Please Choose"/></TableRowColumn>
+-		            </TableRow>
+-		         </TableBody>
+-			</Table>
+-	        	);
+-	      case 1:
+-	        return (
+-			<Table className="tbl-add-emp"
+-	          height={this.state.height}
+-	          fixedHeader={this.state.fixedHeader}
+-	          fixedFooter={this.state.fixedFooter}
+-	          selectable={false}
+-	          multiSelectable={false}
+-	        >
+-				<TableBody className="tbl-body"
+-		            displayRowCheckbox={false}
+-		            deselectOnClickaway={this.state.deselectOnClickaway}
+-		            showRowHover={this.state.showRowHover}
+-		            stripedRows={this.state.stripedRows}
+-		          >
+-		
+-		    		<TableRow>
+-		              <TableRowColumn><TextField hintText="Company" floatingLabelText="Company"/></TableRowColumn>
+-		            
+-		            </TableRow>
+-		            	           
+-		            <TableRow>
+-		              <TableRowColumn><TextField hintText="Position" floatingLabelText="Position"/></TableRowColumn>
+-		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>		              
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn>
+-		              	<DatePicker hintText="From Date" mode="landscape" />
+-		              </TableRowColumn>
+-		              <TableRowColumn>
+-		                  <DatePicker hintText="To Date" mode="landscape" />
+-		              </TableRowColumn>
+-		            </TableRow>
+-		         </TableBody>
+-			</Table>
+-	        	);
+-	      case 2:
+-	        return (
+-			<Table className="tbl-add-emp"
+-	          height={this.state.height}
+-	          fixedHeader={this.state.fixedHeader}
+-	          fixedFooter={this.state.fixedFooter}
+-	          selectable={false}
+-	          multiSelectable={false}
+-	        >
+-				<TableBody className="tbl-body"
+-		            displayRowCheckbox={false}
+-		            deselectOnClickaway={this.state.deselectOnClickaway}
+-		            showRowHover={this.state.showRowHover}
+-		            stripedRows={this.state.stripedRows}
+-		          >
+-		
+-		    		<TableRow>
+-		              <TableRowColumn><TextField hintText="Grade" floatingLabelText="Grade"/></TableRowColumn>
+-		            </TableRow>
+-					<TableRow>		            
+-		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn>
+-		              	<DatePicker hintText="From Date" mode="landscape" />
+-		              </TableRowColumn>
+-		              <TableRowColumn>
+-		                  <DatePicker hintText="To Date" mode="landscape" />
+-		              </TableRowColumn>
+-		            </TableRow>
+-		         </TableBody>
+-			</Table>
+-	        	);
+-	      case 3:
+-	        return (
+-			<Table className="tbl-add-emp"
+-	          height={this.state.height}
+-	          fixedHeader={this.state.fixedHeader}
+-	          fixedFooter={this.state.fixedFooter}
+-	          selectable={false}
+-	          multiSelectable={false}
+-	        >
+-				<TableBody className="tbl-body"
+-		            displayRowCheckbox={false}
+-		            deselectOnClickaway={this.state.deselectOnClickaway}
+-		            showRowHover={this.state.showRowHover}
+-		            stripedRows={this.state.stripedRows}
+-		          >
+-		
+-		    		<TableRow>
+-		              <TableRowColumn><TextField hintText="Name" floatingLabelText="Name"/></TableRowColumn>
+-		              <TableRowColumn><TextField hintText="Relation" floatingLabelText="Relation"/></TableRowColumn>
+-		            </TableRow>
+-					<TableRow>		            
+-		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>
+-		            </TableRow>
+-		         </TableBody>
+-			</Table>
+-	        	);
+-	      case 4:
+-	        return (
+-			<Table className="tbl-add-emp"
+-	          height={this.state.height}
+-	          fixedHeader={this.state.fixedHeader}
+-	          fixedFooter={this.state.fixedFooter}
+-	          selectable={false}
+-	          multiSelectable={false}
+-	        >
+-				<TableBody className="tbl-body"
+-		            displayRowCheckbox={false}
+-		            deselectOnClickaway={this.state.deselectOnClickaway}
+-		            showRowHover={this.state.showRowHover}
+-		            stripedRows={this.state.stripedRows}
+-		          >
+-		
+-		    		<TableRow>
+-		              <TableRowColumn><TextField hintText="Address" floatingLabelText="Address"/></TableRowColumn>
+-		            </TableRow>
+-					<TableRow>		            
+-		              <TableRowColumn><TextField hintText="Description" floatingLabelText="Description" multiLine={true}/></TableRowColumn>
+-		            </TableRow>
+-		            <TableRow>
+-		              <TableRowColumn>
+-		              	<DatePicker hintText="From Date" mode="landscape" />
+-		              </TableRowColumn>
+-		              <TableRowColumn>
+-		                  <DatePicker hintText="To Date" mode="landscape" />
+-		              </TableRowColumn>
+-		            </TableRow>
+-		         </TableBody>
+-			</Table>
+-	        	);
+-	      case 5:
+-	        return (
+-	        	<div>
+-
+-
+-<div className="map_canvas"></div>
+-    
+-    <form>
+-      <input id="geocomplete" type="text" placeholder="Type in an address" />
+-      <input id="find" type="button" value="find" />
+-      
+-      <fieldset className="hide">
+-        <label>Latitude</label>
+-        <input name="lat" type="text" />
+-      
+-        <label>Longitude</label>
+-        <input name="lng" type="text" />
+-      
+-        <label>Formatted Address</label>
+-        <input name="formatted_address" type="text" />
+-      </fieldset>
+-    </form>
+-
+-	        	</div>
+-	        );	        
+-	      default:
+-	        return 'You\'re a long way from home sonny jim!';
+-	    }
+-	  }
+-
+-
+-	doClick(){
+-		//alert();
+-
+-
+-	};
+-
+ 	render(){
+-		const styles = {
+-		  headline: {
+-		    fontSize: 24,
+-		    paddingTop: 16,
+-		    marginBottom: 12,
+-		    fontWeight: 400,
+-		  },
+-		  slide: {
+-		    padding: 10,
+-		  },
+-		  propContainer: {
+-		    width: 200,
+-		    overflow: 'hidden',
+-		    margin: '20px auto 0',
+-		  },
+-		  propToggleHeader: {
+-		    margin: '20px auto 10px',
+-		  },
+-		};
+-
+-
+-
+-		const customContentStyle = {
+-		  width: '80%',
+-		  maxWidth: 'none',
+-		  top: '-50px'
+-		};
+-
+-		const actions = [
+-		<FlatButton label="Back" primary={false} onTouchTap={this.handlePrev}  className="gmap-back-btn"/>,
+-	    <button onTouchTap={this.handleNext} className="gmap-next-btn">Next</button>,
+-	    <FlatButton className="gmap-reset-btn" label="Reset" secondary={true} onTouchTap={this.handleReset} />,
+-
+-	      <FlatButton label="Cancel" primary={true} onTouchTap={this.handleClose} />,
+-	      <FlatButton label="Submit" primary={true} onTouchTap={this.handleClose} />,
+-	    ];
+-
+-	    const {finished, stepIndex} = this.state;
+-	    const contentStyle = {margin: '0 16px'};
+-
+-		return(
++		return(		
+ 			<div>
+ 		        <div className="add-emp-btn" onTouchTap={this.handleOpen} >		        	
+                     <i className="material-icons">add_circle</i>
+                 </div>
+ 
+-		        <Dialog className="emp-diag"
+-		          title="Add Employee"
+-		          actions={actions}
+-		          modal={true}
+-		          contentStyle={customContentStyle}
+-		          open={this.state.open}
+-		        >
+-		          <div className="dialog-content">
+-
+-					<div style={{width: '100%', maxWidth: 800, margin: 'auto'}}>
+-				        <Stepper activeStep={stepIndex} linear={false}>
+-				          <Step>
+-					          <StepButton onClick={() => this.setState({stepIndex: 0})} className="btn-steps" >
+-					              General info
+-					          </StepButton>				            
+-				          </Step>
+-				          <Step>
+-					          <StepButton onClick={() => this.setState({stepIndex: 1})}  className="btn-steps">
+-					              History
+-					          </StepButton>
+-				          </Step>
+-				          <Step>
+-					          	<StepButton onClick={() => this.setState({stepIndex: 2})} className="btn-steps">
+-					              Grade
+-					          </StepButton>
+-				          </Step>
+-				          <Step>
+-				            <StepButton onClick={() => this.setState({stepIndex: 3})} className="btn-steps">
+-				              Dependents 
+-				          </StepButton>
+-				          </Step>
+-				          <Step>
+-				            <StepButton onClick={() => this.setState({stepIndex: 4})} className="btn-steps">
+-				              Address
+-				          </StepButton>
+-				          </Step>
+-				          <Step>
+-				            <StepButton onClick={() => {this.setState({stepIndex: 5}); this.initMap(); } }  className="btn-steps">
+-				              location
+-				          </StepButton>
+-				          </Step>
+-				        </Stepper>
+-				        <div style={contentStyle}>
+-				          {finished ? (
+-				          		<div></div>
+-				          ) : (
+-				            <div>
+-				              <p>{this.getStepContent(stepIndex)}</p>
+-				              
+-				             
+-				            </div>
+-				          )}
+-				        </div>
+-				      </div>
+-
+-		          </div>
+-		        </Dialog>
+-		      </div>
+-
+-			
++		    </div>
+           );
+ 	}
+ }
+ 
++AddEmployee = reduxForm({
++  form: 'AddEmployee'
++})(AddEmployee)
++
+ export default AddEmployee;
+\ No newline at end of file
+diff --git a/src/components/Header.js b/src/components/Header.js
+index 85f5db7..cac22b9 100644
+--- a/src/components/Header.js
++++ b/src/components/Header.js
+@@ -47,6 +47,7 @@ class Header extends React.Component {
+                 iconElementLeft={
+                   <div className="header-left-items">
+                     <table>
++                    <tbody>
+                       <tr>
+                         <td>
+                           <IconButton onClick={handleChangeRequestNavDrawer}><Menu color={white} /></IconButton>
+@@ -61,6 +62,7 @@ class Header extends React.Component {
+                           </div>
+                         </td>
+                       </tr>
++                      </tbody>
+                     </table>
+                     
+                   </div>
+diff --git a/src/components/LeftDrawer.js b/src/components/LeftDrawer.js
+index 8e4e8e9..dc1c5d5 100644
+--- a/src/components/LeftDrawer.js
++++ b/src/components/LeftDrawer.js
+@@ -14,7 +14,8 @@ import Menu from 'material-ui/svg-icons/navigation/menu';
+ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+ import NavigationClose from 'material-ui/svg-icons/navigation/close';
+ import AddEmployee from './AddEmployee';
+-
++import Chip from 'material-ui/Chip';
++import WizardForm from './WizardForm';
+ const LeftDrawer = (props) => {
+   let { navDrawerOpen, width } = props;
+ 
+@@ -41,7 +42,7 @@ const LeftDrawer = (props) => {
+     <Drawer className="drawer" containerClassName="drawer-container" overlayClassName="drawer-overlay"
+       width={width}
+       docked={true}
+-      open={navDrawerOpen} >
++      open={navDrawerOpen}  >
+ 
+         <div style={styles.logo}>
+           
+@@ -73,35 +74,30 @@ const LeftDrawer = (props) => {
+                     <MenuItem key={1} primaryText="sort"/>
+                     <MenuItem key={2} primaryText="sort 2"/>
+                   </IconMenu>
+-                  <IconMenu color={white}
+-                            iconButtonElement={
+-                              <IconButton className="filter-btn white-color">
+-                                <i className="material-icons">format_line_spacing</i>
+-                              </IconButton>
+-                            }
+-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+-                  >
++                  
++                  <IconButton className="chip-label">
++                    <Chip>999</Chip>
++                  </IconButton>
+                     
+-                  </IconMenu>
++              
+                 </div>
+               }
+             />
+         </div> {/*end menu*/}
+ 
+-          {props.menus.map((menu, index) =>
+-             <div style={styles.avatar.div} className="menu-item">
+-              <Avatar src="http://www.material-ui.com/images/uxceo-128.jpg"
++          {props.employees.map((emp, index) =>
++             <div style={styles.avatar.div} className="menu-item" key={index} >
++              <Avatar src={emp.avatar}
+                       size={50}
+                       style={styles.avatar.icon}/>
+ 
+               <div className="cleft">
+-                <div className="employees-info-name" >{props.username}</div>
+-                <div className="employees-info">SE - AP</div>
+-                <div className="employees-info">Bali - +849490123123123</div>
++                <div className="employees-info-name" >{emp.firstName}</div>
++                <div className="employees-info">{emp.grade}</div>
++                <div className="employees-info">{emp.location}</div>
+               </div>
+               <div className="cright">
+-                <div className="employees-info-name" >03/01/2017</div>
++                <div className="employees-info-name" >{emp.hiredDate}</div>
+                 <div className="employees-info">
+                   <i className="material-icons">adjust</i>
+                   <i className="material-icons">keyboard_arrow_right</i>
+@@ -111,7 +107,8 @@ const LeftDrawer = (props) => {
+ 
+             </div>
+           )}
+-            <AddEmployee/>
++          <AddEmployee />
++          <WizardForm/>
+         </div>
+         
+     </Drawer>
+diff --git a/src/components/WizardForm.js b/src/components/WizardForm.js
+new file mode 100644
+index 0000000..16cc745
+--- /dev/null
++++ b/src/components/WizardForm.js
+@@ -0,0 +1,39 @@
++import React, { Component, PropTypes } from 'react'
++import WizardFormFirstPage from './WizardFormFirstPage'
++import WizardFormSecondPage from './WizardFormSecondPage'
++import WizardFormThirdPage from './WizardFormThirdPage'
++
++class WizardForm extends Component {
++  constructor(props) {
++    super(props)
++    this.nextPage = this.nextPage.bind(this)
++    this.previousPage = this.previousPage.bind(this)
++    this.state = {
++      page: 1
++    }
++  }
++  nextPage() {
++    this.setState({ page: this.state.page + 1 })
++  }
++
++  previousPage() {
++    this.setState({ page: this.state.page - 1 })
++  }
++
++  render() {
++    const { onSubmit } = this.props
++    const { page } = this.state
++    return (<div>
++        {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage}/>}
++        {page === 2 && <WizardFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage}/>}
++        {page === 3 && <WizardFormThirdPage previousPage={this.previousPage} onSubmit={onSubmit}/>}
++      </div>
++    )
++  }
++}
++
++WizardForm.propTypes = {
++  onSubmit: PropTypes.func.isRequired
++}
++
++export default WizardForm
+\ No newline at end of file
+diff --git a/src/components/WizardFormFirstPage.js b/src/components/WizardFormFirstPage.js
+new file mode 100644
+index 0000000..8517655
+--- /dev/null
++++ b/src/components/WizardFormFirstPage.js
+@@ -0,0 +1,23 @@
++import React from 'react'
++import { Field, reduxForm } from 'redux-form'
++import validate from './validate'
++import renderField from './renderField'
++
++const WizardFormFirstPage = (props) => {
++  const { handleSubmit } = props
++  return (
++    <form onSubmit={handleSubmit}>
++      <Field name="firstName" type="text" component={renderField} placeholder="First Name"/>
++      <Field name="lastName" type="text" component={renderField} placeholder="Last Name"/>
++      <div>
++        <button type="submit" className="next">Next</button>
++      </div>
++    </form>
++  ) 
++}
++
++export default reduxForm({
++  form: 'wizard',              // <------ same form name
++  destroyOnUnmount: false,     // <------ preserve form data
++  validate
++})(WizardFormFirstPage)
+\ No newline at end of file
+diff --git a/src/components/WizardFormSecondPage.js b/src/components/WizardFormSecondPage.js
+new file mode 100644
+index 0000000..6d9aa19
+--- /dev/null
++++ b/src/components/WizardFormSecondPage.js
+@@ -0,0 +1,33 @@
++import React from 'react'
++import { Field, reduxForm } from 'redux-form'
++import validate from './validate'
++import renderField from './renderField'
++
++const renderError = props => props.touched && props.error ? <span>{props.error}</span> : false
++
++const WizardFormSecondPage = (props) => {
++  const { handleSubmit, previousPage } = props
++  return (
++    <form onSubmit={handleSubmit}>
++      <Field name="email" type="email" component={renderField} placeholder="Email"/>
++      <div>
++        <label>Sex</label>
++        <div>
++          <label><Field name="sex" component="input" type="radio" value="male"/> Male</label>
++          <label><Field name="sex" component="input" type="radio" value="female"/> Female</label>
++          <Field name="sex" component={renderError}/>
++        </div>
++      </div>
++      <div>
++        <button type="button" className="previous" onClick={previousPage}>Previous</button>
++        <button type="submit" className="next">Next</button>
++      </div>
++    </form>
++  )
++}
++
++export default reduxForm({
++  form: 'wizard',  //Form name is same
++  destroyOnUnmount: false,
++  validate
++})(WizardFormSecondPage)
+\ No newline at end of file
+diff --git a/src/components/WizardFormThirdPage.js b/src/components/WizardFormThirdPage.js
+new file mode 100644
+index 0000000..3424649
+--- /dev/null
++++ b/src/components/WizardFormThirdPage.js
+@@ -0,0 +1,47 @@
++import React from 'react'
++import { Field, reduxForm } from 'redux-form'
++import validate from './validate'
++const colors = [ 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet' ]
++
++const renderColorSelector = props => (
++  <div>
++    <select {...props}>
++      <option value="">Select a color...</option>
++      {colors.map(val => <option value={val} key={val}>{val}</option>)}
++    </select>
++    {props.touched && props.error && <span>{props.error}</span>}
++  </div>
++)
++
++const WizardFormThirdPage = (props) => {
++  const { handleSubmit, pristine, previousPage, submitting } = props
++  return (
++    <form onSubmit={handleSubmit}>
++      <div>
++        <label>Favorite Color</label>
++        <Field name="favoriteColor" component={renderColorSelector}/>
++      </div>
++      <div>
++        <label htmlFor="employed">Employed</label>
++        <div>
++          <Field name="employed" id="employed" component="input" type="checkbox"/>
++        </div>
++      </div>
++      <div>
++        <label>Notes</label>
++        <div>
++          <Field name="notes" component="textarea"/>
++        </div>
++      </div>
++      <div>
++        <button type="button" className="previous" onClick={previousPage}>Previous</button>
++        <button type="submit" disabled={pristine || submitting}>Submit</button>
++      </div>
++    </form>
++  )
++}
++export default reduxForm({
++  form: 'wizard', //Form name is same
++  destroyOnUnmount: false,
++  validate
++})(WizardFormThirdPage)
+\ No newline at end of file
+diff --git a/src/components/renderField.js b/src/components/renderField.js
+new file mode 100644
+index 0000000..75ee1ef
+--- /dev/null
++++ b/src/components/renderField.js
+@@ -0,0 +1,11 @@
++const renderField = props => (
++  <div>
++    <label>{props.placeholder}</label>
++    <div>
++      <input {...props}/>
++      {props.touched && props.error && <span>{props.error}</span>}
++    </div>
++  </div>
++)
++
++export default renderField
+\ No newline at end of file
+diff --git a/src/components/validate.js b/src/components/validate.js
+new file mode 100644
+index 0000000..d240b30
+--- /dev/null
++++ b/src/components/validate.js
+@@ -0,0 +1,23 @@
++const validate = values => {
++  const errors = {}
++  if (!values.firstName) {
++    errors.firstName = 'Required'
++  }
++  if (!values.lastName) {
++    errors.lastName = 'Required'
++  }
++  if (!values.email) {
++    errors.email = 'Required'
++  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
++    errors.email = 'Invalid email address'
++  }
++  if (!values.sex) {
++    errors.sex = 'Required'
++  }
++  if (!values.favoriteColor) {
++    errors.favoriteColor = 'Required'
++  }
++  return errors
++}
++
++export default validate
+\ No newline at end of file
+diff --git a/src/containers/App.js b/src/containers/App.js
+index 015d294..6831709 100644
+--- a/src/containers/App.js
++++ b/src/containers/App.js
+@@ -1,4 +1,8 @@
+ import React, { PropTypes } from 'react';
++import { connect } from 'react-redux'
++import { toggleTodo } from '../actions'
++
++
+ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+ import Header from '../components/Header';
+ import LeftDrawer from '../components/LeftDrawer';
+@@ -6,6 +10,7 @@ import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
+ import ThemeDefault from '../theme-default';
+ import Data from '../data';
+ 
++
+ class App extends React.Component {
+ 
+   constructor(props) {
+@@ -27,6 +32,10 @@ class App extends React.Component {
+     });
+   }
+ 
++  handleEmployeeSelect(emoloyee){
++    
++  }
++
+   render() {
+     let { navDrawerOpen } = this.state;
+     var widthDrawer = screen.width * 30/100;
+@@ -53,8 +62,8 @@ class App extends React.Component {
+           <Header styles={styles.header}
+                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
+ 
+-            <LeftDrawer navDrawerOpen={navDrawerOpen}
+-                        menus={Data.menus} width={paddingLeftDrawerOpen}
++            <LeftDrawer navDrawerOpen={navDrawerOpen} employees={Data.employees}
++                        width={paddingLeftDrawerOpen}
+                         username="User Admin"/>
+ 
+             <div style={styles.container}>
+diff --git a/src/containers/DashboardPage.js b/src/containers/DashboardPage.js
+index 493367a..825b90b 100644
+--- a/src/containers/DashboardPage.js
++++ b/src/containers/DashboardPage.js
+@@ -1,39 +1,4 @@
+ import React from 'react';
+-import {cyan600, pink600, purple600, orange600} from 'material-ui/styles/colors';
+-import Assessment from 'material-ui/svg-icons/action/assessment';
+-import Face from 'material-ui/svg-icons/action/face';
+-import ThumbUp from 'material-ui/svg-icons/action/thumb-up';
+-import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
+-import InfoBox from '../components/dashboard/InfoBox';
+-import NewOrders from '../components/dashboard/NewOrders';
+-import MonthlySales from '../components/dashboard/MonthlySales';
+-import BrowserUsage from '../components/dashboard/BrowserUsage';
+-import RecentlyProducts from '../components/dashboard/RecentlyProducts';
+-import globalStyles from '../styles';
+-import Data from '../data';
+-import AppBar from 'material-ui/AppBar';
+-import IconButton from 'material-ui/IconButton';
+-import IconMenu from 'material-ui/IconMenu';
+-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+-
+-import {Tabs, Tab} from 'material-ui/Tabs';
+-import SwipeableViews from 'react-swipeable-views';
+-import FontIcon from 'material-ui/FontIcon';
+-
+-
+-
+-const styles = {
+-  headline: {
+-    fontSize: 24,
+-    paddingTop: 16,
+-    marginBottom: 12,
+-    fontWeight: 400,
+-  },
+-  slide: {
+-    padding: 10,
+-  },
+-};
+-
+ 
+ class DashboardPage extends React.Component {
+ 
+@@ -52,48 +17,7 @@ class DashboardPage extends React.Component {
+ 
+   render(){
+     return (
+-      <div className="main-content" >
+-        <div className="main-menu" >
+-
+-          <Tabs className="main-tabs"
+-            onChange={this.handleChange}
+-            value={this.state.slideIndex}
+-            
+-          >
+-            <Tab icon={<FontIcon className="material-icons">account_circle</FontIcon>} value={0} />
+-            <Tab icon={<FontIcon className="material-icons">history</FontIcon>} value={1} />
+-            <Tab icon={<FontIcon className="material-icons">school</FontIcon>} value={2} />
+-            <Tab icon={<FontIcon className="material-icons">supervisor_account</FontIcon>} value={3} />            
+-            <Tab icon={<FontIcon className="material-icons">account_balance</FontIcon>} value={4} />
+-            <Tab icon={<FontIcon className="material-icons">place</FontIcon>} value={5} />
+-          </Tabs>
+-          <SwipeableViews
+-            index={this.state.slideIndex}
+-            onChangeIndex={this.handleChange}
+-          >
+-            <div>
+-              <h2 style={styles.headline}>Tabs with slide effect</h2>
+-              Swipe to see the next slide.<br />
+-            </div>
+-            <div style={styles.slide}>
+-              slide n°2
+-            </div>
+-            <div style={styles.slide}>
+-              slide n°3
+-            </div>
+-             <div style={styles.slide}>
+-              slide n°4
+-            </div>
+-             <div style={styles.slide}>
+-              slide n°5
+-            </div>
+-             <div style={styles.slide}>
+-              slide n°6
+-            </div>
+-          </SwipeableViews>
+-     
+-        </div>   
+-      </div>
++      <div>1</div>
+     );
+   }
+ };
+diff --git a/src/data.js b/src/data.js
+index f58cd0f..1091e59 100644
+--- a/src/data.js
++++ b/src/data.js
+@@ -9,6 +9,14 @@ import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
+ import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
+ 
+ const data = {
++  employees: [
++    {id: 1, hiredDate: '03/01/2017', firstName: 'First Name 001', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'http://bonghong.hexat.com/files/Anhdong2.gif'},
++    {id: 1, hiredDate: '03/07/2016', firstName: 'First Name 002', lastName: 'Last Name', grade: 'SE-AP', location: 'Bali - Indonesia', avatar: 'https://67.media.tumblr.com/avatar_bd3da2586be3_128.png'},
++    {id: 1, hiredDate: '03/03/2016', firstName: 'First Name 003', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'http://tanphupro.hexat.com/hinhanh/1.jpg'},
++    {id: 1, hiredDate: '03/01/2015', firstName: 'First Name 004', lastName: 'Last Name', grade: 'SE-AP', location: 'Bali - Indonesia', avatar: 'http://svhubtforum.com/forum/data/avatars/m/48/48267.jpg?1474700425'},
++    {id: 1, hiredDate: '03/01/2015', firstName: 'First Name 005', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'https://a.wattpad.com/useravatar/Secrect12.256.969599.jpg'},
++    {id: 1, hiredDate: '03/01/2015', firstName: 'First Name 006', lastName: 'Last Name', grade: 'SE-AP', location: 'Bandung - Indonesia', avatar: 'https://www.otofun.net/data/avatars/m/346/346008.jpg?1438985230'}
++  ],
+   menus: [
+     { text: 'DashBoard', icon: <Assessment/>, link: '/dashboard' },
+     { text: 'Form Page', icon: <Web/>, link: '/form' },
+diff --git a/src/index.js b/src/index.js
+index 622fdef..168d2cf 100755
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,17 +1,20 @@
+-/* eslint-disable import/default */
+-
+ import React from 'react';
+ import { render } from 'react-dom';
++import { Provider } from 'react-redux'
++import { createStore } from 'redux'
++
+ import { Router, browserHistory } from 'react-router';
+ import routes from './routes';
+ import injectTapEventPlugin from 'react-tap-event-plugin';
+-require('./favicon.ico');
++import './favicon.ico';
+ import './styles.scss';
+-import 'font-awesome/css/font-awesome.css';
+-import 'flexboxgrid/css/flexboxgrid.css';
+-
++import store from './store';
+ injectTapEventPlugin();
+ 
+ render(
+-    <Router routes={routes} history={browserHistory} />, document.getElementById('app')
++	<Provider store={store}>
++    	<Router routes={routes} history={browserHistory} />
++    </Provider>, 
++    document.getElementById('app')
++
+ );
+diff --git a/src/reducers/index.js b/src/reducers/index.js
+new file mode 100644
+index 0000000..8a1ca14
+--- /dev/null
++++ b/src/reducers/index.js
+@@ -0,0 +1,8 @@
++import { combineReducers } from 'redux';
++import { routerReducer } from 'react-router-redux';
++
++import trello from './trello';
++
++const rootReducer = combineReducers({trello, routing: routerReducer });
++
++export default rootReducer;
+diff --git a/src/reducers/trello.js b/src/reducers/trello.js
+new file mode 100644
+index 0000000..d2c6a82
+--- /dev/null
++++ b/src/reducers/trello.js
+@@ -0,0 +1,33 @@
++var initState = {
++    boards: [],
++    lists: [],
++    cards: [],
++    login: false,
++    locations: []
++}
++function trello(state = initState, action) {
++    switch (action.type) {
++        case 'FETCH_BOARDS' :
++            return {...state, boards:action.payload}
++            break;  
++
++        case 'FETCH_CARDS' :
++        return {...state, cards: action.payload}
++        break; 
++
++        case 'UPDATE_LOGGED_STATE' :
++            return {...state, login: action.payload}
++            break;  
++
++		case 'DO_LOGIN' :
++            return {...state, login: action.payload}
++            break;
++
++ 		case 'FETCH_LISTS' :
++            return {...state, lists: action.payload}
++            break;  
++        default:
++            return state;
++    }
++}
++export default trello;
+diff --git a/src/routes.js b/src/routes.js
+index 5f507fa..4c5b525 100644
+--- a/src/routes.js
++++ b/src/routes.js
+@@ -3,18 +3,17 @@ import { Route, IndexRoute } from 'react-router';
+ import App from './containers/App';
+ import NotFoundPage from './containers/NotFoundPage.js';
+ import LoginPage from './containers/LoginPage';
+-import FormPage from './containers/FormPage';
+-import TablePage from './containers/TablePage';
+ import Dashboard from './containers/DashboardPage';
+ 
++import { createStore, combineReducers } from 'redux'
++import { reducer as formReducer } from 'redux-form'
++
+ export default (
+   <Route>
+     <Route path="login" component={LoginPage}/>
+     <Route path="/" component={App}>
+       <IndexRoute component={Dashboard}/>
+       <Route path="dashboard" component={Dashboard}/>
+-      <Route path="form" component={FormPage}/>
+-      <Route path="table" component={TablePage}/>
+       <Route path="*" component={NotFoundPage}/>
+     </Route>
+   </Route>
+diff --git a/src/store.js b/src/store.js
+new file mode 100644
+index 0000000..0df8950
+--- /dev/null
++++ b/src/store.js
+@@ -0,0 +1,27 @@
++import {createStore, applyMiddleware} from 'redux'
++import {syncHistoryWithStore} from 'react-router-redux';
++import {browserHistory} from 'react-router';
++// import the root reducer
++import rootReducer from './reducers/index';
++import logger from 'redux-logger';
++import thunk from 'redux-thunk';
++
++const middleware = applyMiddleware(thunk, logger());
++const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
++
++const store = createStore(
++    rootReducer,
++    persistedState,
++    middleware
++)
++
++export const history = syncHistoryWithStore(browserHistory, store);
++
++if (module.hot) {
++    module.hot.accept('./reducers/', () => {
++        const nextRootReducer = require('./reducers/index').default;
++        store.replaceReducer(nextRootReducer);
++    });
++}
++
++export default store;
+\ No newline at end of file
+diff --git a/src/styles.scss b/src/styles.scss
+index 3cae07e..471213e 100644
+--- a/src/styles.scss
++++ b/src/styles.scss
+@@ -238,6 +238,8 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
+   float: right;
+   position: relative;
+   background: transparent !important; 
++    top:-200px;
++  left:-10px;
+ }
+ .add-emp-btn i{
+   color:#e91e63;
+@@ -289,4 +291,7 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
+ }
+ .hide{
+   display:none;
++}
++.chip-label{
++  margin-right:10px;
+ }
+\ No newline at end of file

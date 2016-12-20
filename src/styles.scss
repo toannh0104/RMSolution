@@ -238,6 +238,8 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
   float: right;
   position: relative;
   background: transparent !important; 
+    top:-200px;
+  left:-10px;
 }
 .add-emp-btn i{
   color:#e91e63;
@@ -289,4 +291,7 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
 }
 .hide{
   display:none;
+}
+.chip-label{
+  margin-right:10px;
 }
