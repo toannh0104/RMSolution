@@ -35,7 +35,7 @@ const styles = {
 };
 
 
-class DashboardPage extends React.Component {
+class MainContent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -99,4 +99,4 @@ class DashboardPage extends React.Component {
   }
 };
 
-export default DashboardPage;
+export default MainContent;

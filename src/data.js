@@ -9,6 +9,20 @@ import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
 
 const data = {
+  employees: [
+    {id: 1, hiredDate: '03/01/2017', firstName: 'First Name 001', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'http://bonghong.hexat.com/files/Anhdong2.gif'},
+    {id: 2, hiredDate: '03/07/2016', firstName: 'First Name 002', lastName: 'Last Name', grade: 'SE-AP', location: 'Bali - Indonesia', avatar: 'https://67.media.tumblr.com/avatar_bd3da2586be3_128.png'},
+    {id: 3, hiredDate: '03/03/2016', firstName: 'First Name 003', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'http://tanphupro.hexat.com/hinhanh/1.jpg'},
+    {id: 4, hiredDate: '03/01/2015', firstName: 'First Name 004', lastName: 'Last Name', grade: 'SE-AP', location: 'Bali - Indonesia', avatar: 'http://svhubtforum.com/forum/data/avatars/m/48/48267.jpg?1474700425'},
+    {id: 5, hiredDate: '03/01/2015', firstName: 'First Name 005', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'https://a.wattpad.com/useravatar/Secrect12.256.969599.jpg'},
+    {id: 6, hiredDate: '03/01/2015', firstName: 'First Name 006', lastName: 'Last Name', grade: 'SE-AP', location: 'Bandung - Indonesia', avatar: 'https://www.otofun.net/data/avatars/m/346/346008.jpg?1438985230'},
+    {id: 7, hiredDate: '03/01/2017', firstName: 'First Name 001', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'http://bonghong.hexat.com/files/Anhdong2.gif'},
+    {id: 8, hiredDate: '03/07/2016', firstName: 'First Name 002', lastName: 'Last Name', grade: 'SE-AP', location: 'Bali - Indonesia', avatar: 'https://67.media.tumblr.com/avatar_bd3da2586be3_128.png'},
+    {id: 9, hiredDate: '03/03/2016', firstName: 'First Name 003', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'http://tanphupro.hexat.com/hinhanh/1.jpg'},
+    {id: 10, hiredDate: '03/01/2015', firstName: 'First Name 004', lastName: 'Last Name', grade: 'SE-AP', location: 'Bali - Indonesia', avatar: 'http://svhubtforum.com/forum/data/avatars/m/48/48267.jpg?1474700425'},
+    {id: 11, hiredDate: '03/01/2015', firstName: 'First Name 005', lastName: 'Last Name', grade: 'SE-AP', location: 'Hanoi - Viet Nam', avatar: 'https://a.wattpad.com/useravatar/Secrect12.256.969599.jpg'},
+    {id: 12, hiredDate: '03/01/2015', firstName: 'First Name 006', lastName: 'Last Name', grade: 'SE-AP', location: 'Bandung - Indonesia', avatar: 'https://www.otofun.net/data/avatars/m/346/346008.jpg?1438985230'}
+  ],
   menus: [
     { text: 'DashBoard', icon: <Assessment/>, link: '/dashboard' },
     { text: 'Form Page', icon: <Web/>, link: '/form' },

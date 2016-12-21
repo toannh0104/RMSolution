@@ -66,8 +66,7 @@ class AddEmployee extends React.Component {
 	      multiSelectable: false,
 	      enableSelectAll: false,
 	      deselectOnClickaway: true,
-	      showCheckboxes: true,
-	      height: '600px',
+	      showCheckboxes: true
 	    };
 
 	    this.initMap= this.initMap.bind(this);
@@ -165,15 +164,15 @@ class AddEmployee extends React.Component {
 		            <TableRow>
 		              <TableRowColumn><TextField hintText="Gender" floatingLabelText="Gender"/></TableRowColumn>
 		              <TableRowColumn>
-		                  <DatePicker hintText="Suspend Date" mode="landscape" />
+		                  <DatePicker hintText="Suspend Date" />
 		              </TableRowColumn>
 		            </TableRow>
 		            <TableRow>
 		              <TableRowColumn>
-		              	<DatePicker hintText="Date Of Birth" mode="landscape" />		              
+		              	<DatePicker hintText="Date Of Birth" />		              
 		              </TableRowColumn>
 		              <TableRowColumn>
-		              	<DatePicker hintText="Hired Date" mode="landscape" />
+		              	<DatePicker hintText="Hired Date" />
 		              </TableRowColumn>
 		            </TableRow>
 		            <TableRow>
@@ -214,10 +213,10 @@ class AddEmployee extends React.Component {
 		            </TableRow>
 		            <TableRow>
 		              <TableRowColumn>
-		              	<DatePicker hintText="From Date" mode="landscape" />
+		              	<DatePicker hintText="From Date" />
 		              </TableRowColumn>
 		              <TableRowColumn>
-		                  <DatePicker hintText="To Date" mode="landscape" />
+		                  <DatePicker hintText="To Date" />
 		              </TableRowColumn>
 		            </TableRow>
 		         </TableBody>
@@ -247,10 +246,10 @@ class AddEmployee extends React.Component {
 		            </TableRow>
 		            <TableRow>
 		              <TableRowColumn>
-		              	<DatePicker hintText="From Date" mode="landscape" />
+		              	<DatePicker hintText="From Date" />
 		              </TableRowColumn>
 		              <TableRowColumn>
-		                  <DatePicker hintText="To Date" mode="landscape" />
+		                  <DatePicker hintText="To Date" />
 		              </TableRowColumn>
 		            </TableRow>
 		         </TableBody>
@@ -306,10 +305,10 @@ class AddEmployee extends React.Component {
 		            </TableRow>
 		            <TableRow>
 		              <TableRowColumn>
-		              	<DatePicker hintText="From Date" mode="landscape" />
+		              	<DatePicker hintText="From Date" />
 		              </TableRowColumn>
 		              <TableRowColumn>
-		                  <DatePicker hintText="To Date" mode="landscape" />
+		                  <DatePicker hintText="To Date" />
 		              </TableRowColumn>
 		            </TableRow>
 		         </TableBody>

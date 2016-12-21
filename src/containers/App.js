@@ -54,7 +54,7 @@ class App extends React.Component {
                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
 
             <LeftDrawer navDrawerOpen={navDrawerOpen}
-                        menus={Data.menus} width={paddingLeftDrawerOpen}
+                        employees={Data.employees} width={paddingLeftDrawerOpen}
                         username="User Admin"/>
 
             <div style={styles.container}>
@@ -71,5 +71,6 @@ App.propTypes = {
   children: PropTypes.element,
   width: PropTypes.number
 };
+
 
 export default withWidth()(App);
