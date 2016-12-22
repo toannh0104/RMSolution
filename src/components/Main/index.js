@@ -4,10 +4,8 @@ import Header from '../Header';
 import LeftDrawer from '../LeftDrawer';
 import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
+import Data from '../data';
 import * as actionCreators from '../../actions/actionCreators'
-import DashboardPage from '../DashboardPage';
-
-
 class Main extends React.Component {
 
   constructor(props) {
@@ -15,8 +13,6 @@ class Main extends React.Component {
     this.state = {
       navDrawerOpen: false
     };
-
-    this.props.current.employees = this.props.posts;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -26,7 +22,6 @@ class Main extends React.Component {
   }
 
   handleChangeRequestNavDrawer() {
-    console.log("handleChangeRequestNavDrawer");
     this.setState({
       navDrawerOpen: !this.state.navDrawerOpen
     });
@@ -49,24 +44,33 @@ class Main extends React.Component {
         paddingLeft: navDrawerOpen && this.props.width !== SMALL ? paddingLeftDrawerOpen : 0
       }
     };
-    this.props.current.paddingLeftDrawerOpen = paddingLeftDrawerOpen;
-    
+
     return (
       <MuiThemeProvider muiTheme={ThemeDefault}>
+
         <div>
-            <Header styles={styles.header}
+       
+          <Header styles={styles.header}
                   handleChangeRequestNavDrawer={this.handleChangeRequestNavDrawer.bind(this)}/>
 
-            <LeftDrawer navDrawerOpen={navDrawerOpen} {...this.props} />
-            <div style={styles.container}>
-              <DashboardPage {...this.props} />
-            </div>
-           
-        </div>
+            <LeftDrawer navDrawerOpen={navDrawerOpen}
+                        employees={Data.employees} width={paddingLeftDrawerOpen}
+                        username="User Admin"/>
 
+            <div style={styles.container}>
+              {this.props.children}
+            </div>
+
+        </div>
       </MuiThemeProvider>
     );
   }
 }
+
+Main.propTypes = {
+  children: PropTypes.element,
+  width: PropTypes.number
+};
+
 
 export default Main;

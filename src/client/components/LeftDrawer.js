@@ -40,7 +40,8 @@ class LeftDrawer extends React.Component {
 
   render(){
     console.log("render left");
-    console.log(this.props.current.employees);
+    console.log("selected: ");
+    console.log(this.props.current.selectedEmp);
     let keyword = this.props.current.keyword;
 
 
@@ -53,7 +54,7 @@ class LeftDrawer extends React.Component {
             {this.props.current.employees.length > 0 ? (
                 <div>
                 {this.props.current.employees.map((emp, index) =>
-                   <div className="menu-item" key={emp.id} onClick={this.loadEmp.bind(null, emp.id)} >
+                   <div className={this.props.current.selectedEmp.id === emp.id ? ('menu-item selected'):'menu-item '}  key={emp.id} onClick={this.loadEmp.bind(null, emp.id)}  >
                     <Avatar src={emp.avatar} className="employees-avatar" size={50}/>
 
                     <div className="cleft">
@@ -65,14 +66,15 @@ class LeftDrawer extends React.Component {
                       <div className="employees-info-name" >{emp.hiredDate} </div>
                       <div className="employees-info">                        
                           <IconMenu
-                            iconButtonElement={<IconButton><ContentFilter /></IconButton>}
+                            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                             targetOrigin={{horizontal: 'left', vertical: 'top'}}
                           >
                             <MenuItem primaryText="Deactive"  leftIcon={<SvgIcon> <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/> </SvgIcon>}  />
-                            <MenuItem primaryText="Send Feedback"  leftIcon={<SvgIcon> <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/> </SvgIcon>}  />
+                            <MenuItem primaryText="Edit"  leftIcon={<SvgIcon> <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/> </SvgIcon>}  />
                             <MenuItem onClick={this.handleDelete.bind(null, emp.id)} primaryText="Delete" leftIcon={<SvgIcon><path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/></SvgIcon>} />
-                          </IconMenu>           
+                            <MenuItem primaryText="Send Feedback"  leftIcon={<SvgIcon> <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/> </SvgIcon>}  />
+                          </IconMenu>
                       </div>
 
                     </div>
