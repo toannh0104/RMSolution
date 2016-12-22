@@ -9,7 +9,18 @@ import posts from './data/posts'
 // create an object for the default data
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-const middleware = applyMiddleware(thunk, logger());
+
+const localStorageMiddleware = ({getState}) => {
+  return (next) => (action) => {
+    const result = next(action);
+    localStorage.setItem('applicationState', JSON.stringify(
+      getState()
+    ));
+    return result;
+  };
+};
+
+const middleware = applyMiddleware(localStorageMiddleware, thunk, logger());
 
 const defaultState = { posts }
 

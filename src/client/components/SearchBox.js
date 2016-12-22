@@ -3,10 +3,46 @@ import TextField from 'material-ui/TextField';
 import {white, blue500} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import Search from 'material-ui/svg-icons/action/search';
+import Fuse from 'fuse.js';
+class SearchBox extends React.Component {
 
-const SearchBox = () => {
+  handleSearch(e){
+    console.log(this.props);
+    let keyword = e.target.value.trim();
+    let currentEmployees = this.props.posts;
 
-  const styles = {
+    if(keyword.length < 3) {
+      this.props.current.keyword = undefined;
+      this.props.search(currentEmployees);
+      return;
+    };
+    
+    this.props.current.keyword = keyword;
+    var options = {
+      shouldSort: true,
+      threshold: 0.4,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 3,
+      keys: [{
+        name: 'firstName'
+      }, {
+        name: 'lastName'
+      }, {
+        name: 'location'
+      }, {
+        name: 'phone'
+      }]
+    };
+    var fuse = new Fuse(currentEmployees, options)    
+    this.props.search(fuse.search(e.target.value))
+  }
+
+
+
+  render(){
+    const styles = {
     iconButton: {
       float: 'left',
       paddingTop: 17
@@ -27,21 +63,24 @@ const SearchBox = () => {
     }
   };
 
-  return (
-    <div>
-      <IconButton style={styles.iconButton} >
-        <Search color={white} />
-      </IconButton>
-      <TextField
-        hintText="Search..."
-        underlineShow={false}
-        fullWidth={true}
-        style={styles.textField}
-        inputStyle={styles.inputStyle}
-        hintStyle={styles.hintStyle}
-      />
-    </div>
-  );
+    return (
+      <div>
+        <IconButton style={styles.iconButton} >
+          <Search color={white} />
+        </IconButton>
+        <TextField
+          hintText="Search..."
+          underlineShow={false}
+           maxLength="15" 
+          fullWidth={true}
+          style={styles.textField}
+          inputStyle={styles.inputStyle}
+          hintStyle={styles.hintStyle}
+          onChange={this.handleSearch.bind(this)}
+        />
+      </div>
+    );
+  }
 };
 
 export default SearchBox;

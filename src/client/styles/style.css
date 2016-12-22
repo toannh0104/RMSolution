@@ -189,17 +189,18 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
 }
 
 .menu-item{
-  border-bottom:solid 1px #aeaeae;
+  border-bottom:solid 2px #aeaeae;
   padding: 15px 0 20px 15px;
   height: 45px;
 }
 .menu-item:hover{
-  border-bottom:solid 1px #880e4f;
+  border-bottom:solid 2px #880e4f;
 }
 .drawer-container{
   background-color:#fff !important;
   top:57px !important;
   position:absolute !important;
+  height:auto !important;
 }
 .employees-info-name{
   font-weight:bold;
@@ -226,7 +227,7 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
 }
 .main-tabs > div:first-child{
   background:#5c6bc0 !important;
-  height:55px;
+  height:50px;
 }
 .main-tabs > div:nth-child(2) > div:first-child{
   background:#880e4f !important;
@@ -297,4 +298,18 @@ Courtesy: http://bootsnipp.com/snippets/featured/loading-button-effect-no-js
   display: block;
   margin-right: 15px;
   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.2);
+}
+.heading-line{
+    font-size: 24px;
+    padding-top: 16px;
+    margin-bottom: 12px;
+    font-weight: 400;
+    padding-left: 30px;
+}
+.chip-counter{
+      float: right;
+    margin-top: 12px !important;
+}
+.highlight{
+  background-color: #fff600;
 }

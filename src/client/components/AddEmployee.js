@@ -19,7 +19,7 @@ import DatePicker from 'material-ui/DatePicker';
 
 $(document).ready(function(){
 
-$(".add-emp-btn").draggable({containment:$(".employees"), scroll:false});
+//$(".add-emp-btn").draggable({containment:$(".employees"), scroll:false});
         $("#geocomplete").geocomplete({
           map: ".map_canvas",
           details: "form ",

@@ -4,9 +4,9 @@ import Header from '../Header';
 import LeftDrawer from '../LeftDrawer';
 import withWidth, {LARGE, SMALL} from 'material-ui/utils/withWidth';
 import ThemeDefault from '../theme-default';
-import Data from '../data';
 import * as actionCreators from '../../actions/actionCreators'
 import DashboardPage from '../DashboardPage';
+
 
 class Main extends React.Component {
 
@@ -15,6 +15,9 @@ class Main extends React.Component {
     this.state = {
       navDrawerOpen: false
     };
+
+    this.props.current.employees = this.props.posts;
+    console.log("inited employees")
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,6 +27,7 @@ class Main extends React.Component {
   }
 
   handleChangeRequestNavDrawer() {
+    console.log("handleChangeRequestNavDrawer");
     this.setState({
       navDrawerOpen: !this.state.navDrawerOpen
     });
@@ -47,7 +51,7 @@ class Main extends React.Component {
       }
     };
     this.props.current.paddingLeftDrawerOpen = paddingLeftDrawerOpen;
-    this.props.current.employees = Data.employees
+    
     return (
       <MuiThemeProvider muiTheme={ThemeDefault}>
         <div>
@@ -58,16 +62,12 @@ class Main extends React.Component {
             <div style={styles.container}>
               <DashboardPage {...this.props} />
             </div>
+           
         </div>
+
       </MuiThemeProvider>
     );
   }
 }
 
-Main.propTypes = {
-  children: PropTypes.element,
-  width: PropTypes.number
-};
-
-
-export default withWidth()(Main);
+export default Main;

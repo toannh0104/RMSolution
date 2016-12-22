@@ -28,3 +28,10 @@ export function updateSlected(postCode) {
     postCode
   }
 }
+
+export function search(employees) {
+  return {
+    type: 'SEARCH_EMPLOYEE',
+    employees
+  }
+}

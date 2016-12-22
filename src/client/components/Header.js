@@ -20,10 +20,12 @@ class Header extends React.Component {
     this.state = {
       dataSource: [],
     };
+
+    this.props.handleChangeRequestNavDrawer();
   }
- 
+
   render() {
-    const {styles, handleChangeRequestNavDrawer} = this.props;
+    const {styles, handleChangeRequestNavDrawer} = this.props;    
 
     const style = {
       appBar: {
@@ -47,6 +49,7 @@ class Header extends React.Component {
                 iconElementLeft={
                   <div className="header-left-items">
                     <table>
+                    <tbody>
                       <tr>
                         <td>
                           <IconButton onClick={handleChangeRequestNavDrawer}><Menu color={white} /></IconButton>
@@ -61,6 +64,7 @@ class Header extends React.Component {
                           </div>
                         </td>
                       </tr>
+                      </tbody>
                     </table>
                     
                   </div>

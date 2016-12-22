@@ -24,12 +24,9 @@ module.exports = {
         loaders: ['babel'],
         include: path.join(__dirname, 'client')
       },
-      // CSS
-      {
-        test: /\.styl$/,
-        include: path.join(__dirname, 'client'),
-        loader: 'style-loader!css-loader!stylus-loader'
-      }
+
+      {test: /(\.css|\.scss)$/, loaders: ['style', 'css?sourceMap', 'postcss', 'sass?sourceMap']}
+
     ]
   }
 }

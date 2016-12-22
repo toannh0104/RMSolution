@@ -45,6 +45,7 @@ class DashboardPage extends React.Component {
   };
 
   handleChange(value){
+    console.log("change tab: "+value)
     this.setState({
       slideIndex: value
     });
@@ -73,6 +74,7 @@ class DashboardPage extends React.Component {
             onChangeIndex={this.handleChange}
           >
             <div>
+              <h2 className="heading-line">General information</h2>
               <Table className="tbl-add-emp"
                     height={this.state.height}
                     fixedHeader={this.state.fixedHeader}
@@ -92,40 +94,95 @@ class DashboardPage extends React.Component {
                             <TextField value={employee.firstName} disabled={true} floatingLabelText="First Name"/>
                           </TableRowColumn>
                           <TableRowColumn>
-                            <TextField value={employee.subDivision} floatingLabelText="Sub Division"/></TableRowColumn>
+                            <TextField value={employee.subDivision} disabled={true} floatingLabelText="Sub Division"/></TableRowColumn>
+                            <TableRowColumn>
+                              <img src={employee.avatar} width={100} />
+                            </TableRowColumn>
                         </TableRow>
                         <TableRow>
-                          <TableRowColumn><TextField hintText="Last Name" floatingLabelText="Last Name"/></TableRowColumn>
-                          <TableRowColumn><TextField hintText="Status" floatingLabelText="Status"/></TableRowColumn>
+                          <TableRowColumn><TextField value={employee.lastName} disabled={true} floatingLabelText="Last Name"/></TableRowColumn>
+                          <TableRowColumn><TextField value={employee.status} disabled={true} floatingLabelText="Status"/></TableRowColumn>
                         </TableRow>
                         <TableRow>
-                          <TableRowColumn><TextField hintText="Gender" floatingLabelText="Gender"/></TableRowColumn>
+                          <TableRowColumn><TextField value={employee.gender} disabled={true} floatingLabelText="Gender"/></TableRowColumn>
                           <TableRowColumn>
-                              <DatePicker hintText="Suspend Date" />
+                              <DatePicker value={employee.hiredDate} disabled={true} />
                           </TableRowColumn>
                         </TableRow>
                         <TableRow>
                           <TableRowColumn>
-                            <DatePicker hintText="Date Of Birth" />                 
+                            <DatePicker value={employee.hiredDate} disabled={true}  />                 
                           </TableRowColumn>
                           <TableRowColumn>
-                            <DatePicker hintText="Hired Date" />
+                            <DatePicker value={employee.hiredDate} disabled={true}  />
                           </TableRowColumn>
                         </TableRow>
                         <TableRow>
-                          <TableRowColumn><TextField hintText="Phone" floatingLabelText="Phone"/></TableRowColumn>
-                          <TableRowColumn><TextField hintText="Grade" floatingLabelText="Grade"/></TableRowColumn>
+                          <TableRowColumn><TextField value={employee.phone} disabled={true} floatingLabelText="Phone"/></TableRowColumn>
+                          <TableRowColumn><TextField value={employee.grade} disabled={true}  floatingLabelText="Grade"/></TableRowColumn>
                         </TableRow>
                         <TableRow>
                           <TableRowColumn><TextField hintText="Marital Status" floatingLabelText="Marital Status"/></TableRowColumn>
-                          <TableRowColumn><TextField hintText="Division" floatingLabelText="Please Choose"/></TableRowColumn>
+                          <TableRowColumn><TextField value={employee.location} disabled={true}  floatingLabelText="Location"/></TableRowColumn>
                         </TableRow>
                      </TableBody>
               </Table>
 
             </div>
             <div style={styles.slide}>
-              slide n°2
+              <h2 className="heading-line">Historical</h2>
+              <Table className="tbl-add-emp"
+                    height={this.state.height}
+                    fixedHeader={this.state.fixedHeader}
+                    fixedFooter={this.state.fixedFooter}
+                    selectable={false}
+                    multiSelectable={false}
+                  >
+               <TableHeader
+                  displaySelectAll={false}
+                  adjustForCheckbox={false}
+                  enableSelectAll={false}
+                >
+                  <TableRow>
+                    <TableHeaderColumn tooltip="Company">Company</TableHeaderColumn>
+                    <TableHeaderColumn tooltip="Company">Position</TableHeaderColumn>
+                    <TableHeaderColumn tooltip="Company">Date</TableHeaderColumn>
+                    <TableHeaderColumn></TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody className="tbl-body"
+                        displayRowCheckbox={false}
+                        deselectOnClickaway={this.state.deselectOnClickaway}
+                        showRowHover={this.state.showRowHover}
+                        stripedRows={this.state.stripedRows}
+                      >            
+                    <TableRow>
+                      <TableRowColumn>Company Name</TableRowColumn>
+                      <TableRowColumn>Position</TableRowColumn>
+                      <TableRowColumn>From xxx to xxx</TableRowColumn>
+                      <TableRowColumn>Edit</TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn>Company Name</TableRowColumn>
+                      <TableRowColumn>Position</TableRowColumn>
+                      <TableRowColumn>From xxx to xxx</TableRowColumn>
+                      <TableRowColumn>Edit</TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn>Company Name</TableRowColumn>
+                      <TableRowColumn>Position</TableRowColumn>
+                      <TableRowColumn>From xxx to xxx</TableRowColumn>
+                      <TableRowColumn>Edit/Remove</TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn></TableRowColumn>
+                      <TableRowColumn></TableRowColumn>
+                      <TableRowColumn></TableRowColumn>
+                      <TableRowColumn>Add</TableRowColumn>
+                    </TableRow>
+                    
+                 </TableBody>
+                </Table>
             </div>
             <div style={styles.slide}>
               slide n°3
